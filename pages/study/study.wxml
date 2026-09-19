@@ -44,7 +44,7 @@
         <text class="ra-title">认识</text>
       </view>
     </view>
-    <view class="study-tip t3" wx:else>点「认识」直接过；点「不认识」会先显示中文</view>
+    <view class="study-tip t3" wx:if="{{!rated}}">点「认识」直接过；点「不认识」会先显示中文</view>
   </block>
 
   <!-- 完成：已自动打卡 -->
