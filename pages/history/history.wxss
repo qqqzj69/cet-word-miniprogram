@@ -1,0 +1,169 @@
+.h-head {
+  padding: 24rpx 8rpx 32rpx;
+}
+
+.h-sub {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  font-weight: 300;
+}
+
+/* ---------- 空状态 ---------- */
+.h-empty {
+  padding: 80rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  text-align: center;
+}
+
+.h-empty-icon { font-size: 72rpx; }
+
+.h-empty-sub {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  font-weight: 300;
+}
+
+.h-empty-btn {
+  margin-top: 24rpx;
+  width: 320rpx;
+}
+
+/* ---------- 列表 ---------- */
+.h-list { padding-bottom: 8rpx; }
+
+.h-day {
+  margin-bottom: 20rpx;
+  padding: 28rpx 32rpx;
+  overflow: hidden;
+}
+
+.h-day-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.h-day-date {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.h-day-md {
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
+.h-day-week {
+  font-size: 26rpx;
+  font-weight: 300;
+  color: var(--ink-2);
+}
+
+.h-day-today {
+  background: rgba(10, 132, 255, 0.14);
+  color: var(--brand);
+  border-color: rgba(10, 132, 255, 0.25);
+}
+
+.h-day-meta {
+  margin-top: 8rpx;
+  font-size: 23rpx;
+  font-weight: 300;
+}
+
+.h-day-arrow {
+  color: var(--ink-3);
+  font-size: 40rpx;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.h-day-arrow-open {
+  transform: rotate(90deg);
+}
+
+/* ---------- 展开明细 ---------- */
+.h-day-detail {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.32s ease, opacity 0.25s ease, margin-top 0.32s ease;
+}
+
+.h-day-detail-open {
+  max-height: 4000rpx;
+  opacity: 1;
+  margin-top: 24rpx;
+}
+
+.h-day-empty {
+  font-size: 24rpx;
+  font-weight: 300;
+  padding: 12rpx 0;
+}
+
+.h-word {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 18rpx 0;
+  border-top: 1rpx solid var(--hair);
+}
+
+.h-word-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.h-word-en {
+  font-size: 30rpx;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.h-word-cn {
+  margin-top: 4rpx;
+  font-size: 25rpx;
+  font-weight: 300;
+  word-break: break-all;
+}
+
+.h-word-tag {
+  flex-shrink: 0;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 21rpx;
+  font-weight: 500;
+}
+
+.h-word-right {
+  background: rgba(52, 199, 89, 0.16);
+  color: #248A3D;
+}
+
+.h-word-vague {
+  background: rgba(255, 149, 0, 0.18);
+  color: #C77700;
+}
+
+.h-word-wrong {
+  background: rgba(255, 59, 48, 0.14);
+  color: #FF3B30;
+}
+
+/* ---------- 加载更多 ---------- */
+.h-more {
+  margin-top: 8rpx;
+}
+
+.h-end {
+  text-align: center;
+  padding: 24rpx 0 8rpx;
+  font-size: 23rpx;
+  font-weight: 300;
+}

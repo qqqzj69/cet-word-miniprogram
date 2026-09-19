@@ -1,19 +1,22 @@
-<view class="wc {{flipped ? 'is-flipped' : ''}}" bindtap="onTap" wx:if="{{item}}">
-  <view class="wc-inner">
-    <!-- 正面：单词 -->
-    <view class="wc-face wc-front">
+<view class="wc {{revealed ? 'is-revealed' : ''}}" bindtap="onTap" hover-class="wc-hover" wx:if="{{item}}">
+  <view class="wc-body">
+    <!-- 单词：始终展示 -->
+    <view class="wc-word-wrap">
       <text class="wc-word">{{item.w}}</text>
-      <view class="wc-hint">
-        <view class="wc-hint-dot"></view>
-        <text>点击查看释义</text>
-      </view>
     </view>
-    <!-- 背面：释义 -->
-    <view class="wc-face wc-back">
-      <text class="wc-word-sm">{{item.w}}</text>
+
+    <!-- 中文释义：点击后直接出现，无翻卡动画 -->
+    <view class="wc-meaning-wrap" wx:if="{{revealed}}">
       <scroll-view scroll-y class="wc-scroll" enhanced show-scrollbar="{{false}}">
         <text class="wc-meaning">{{item.m}}</text>
       </scroll-view>
+    </view>
+
+    <!-- 行为提示：明确告诉用户点一下会发生什么 -->
+    <view class="wc-hint {{revealed ? 'wc-hint-go' : ''}}">
+      <view class="wc-hint-dot"></view>
+      <text wx:if="{{revealed}}">再点一次 = 认识，自动进入下一个</text>
+      <text wx:else>轻点卡片，显示中文释义</text>
     </view>
   </view>
 </view>

@@ -21,22 +21,25 @@
   <!-- 学习中 -->
   <block wx:if="{{!finished}}">
     <view class="study-stage" wx:if="{{showCard}}">
-      <word-card class="fade-up" item="{{item}}" flipped="{{flipped}}" bind:flip="onFlip" />
+      <word-card class="fade-up" item="{{item}}" revealed="{{revealed}}" bind:tap="onCardTap" />
     </view>
 
+    <!-- 操作区：与卡片分开，任何时候都可直接标记 -->
     <view class="study-actions">
-      <view class="ra ra-wrong {{flipped ? '' : 'ra-off'}}" hover-class="ra-hover" bindtap="onRate" data-r="wrong">
+      <view class="ra ra-wrong" hover-class="ra-hover" bindtap="onRate" data-r="wrong">
         <text class="ra-title">不认识</text>
       </view>
-      <view class="ra ra-vague {{flipped ? '' : 'ra-off'}}" hover-class="ra-hover" bindtap="onRate" data-r="vague">
+      <view class="ra ra-vague" hover-class="ra-hover" bindtap="onRate" data-r="vague">
         <text class="ra-title">模糊</text>
       </view>
-      <view class="ra ra-right {{flipped ? '' : 'ra-off'}}" hover-class="ra-hover" bindtap="onRate" data-r="right">
+      <view class="ra ra-right {{revealed ? 'ra-active' : ''}}" hover-class="ra-hover" bindtap="onRate" data-r="right">
         <text class="ra-title">认识</text>
       </view>
     </view>
 
-    <view class="study-tip t3">{{flipped ? '凭印象评价，记错的词会更快回来' : '先回忆词义，再点击卡片揭晓'}}</view>
+    <view class="study-tip t3">
+      {{revealed ? '点卡片 = 认识；或直接用下方按钮标记' : '点卡片看释义，再点一次算认识；也可直接标不认识'}}
+    </view>
   </block>
 
   <!-- 完成 -->

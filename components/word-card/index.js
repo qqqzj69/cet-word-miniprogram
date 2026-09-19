@@ -3,11 +3,12 @@ Component({
   properties: {
     /** { w: 单词, m: 释义 } */
     item: { type: Object, value: null },
-    flipped: { type: Boolean, value: false }
+    /** 是否已显示中文释义 */
+    revealed: { type: Boolean, value: false }
   },
   methods: {
     onTap() {
-      this.triggerEvent('flip');
+      this.triggerEvent('tap');
     }
   }
 });

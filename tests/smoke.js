@@ -137,4 +137,51 @@ const after = fresh();
 const ovAfter = after.getOverview();
 ok('清空后回到初始态', ovAfter.done === 0 && ovAfter.today.learned === 0 && ovAfter.checkedToday === false);
 
+console.log('\n[10] 每日背单词历史');
+progress = fresh();
+progress.init();
+// 造三天历史：今天 + 昨天 + 前天
+const histSeed = JSON.parse(JSON.stringify(mem[KEY]));
+const t0 = Date.now();
+['2026-09-17', '2026-09-18'].forEach(function (ds, idx) {
+  histSeed.daily[ds] = {
+    learned: 2, right: 1, vague: 1, wrong: 0,
+    list: [
+      { w: 'day' + idx + 'a', m: '释义A', r: 'right' },
+      { w: 'day' + idx + 'b', m: '释义B', r: 'vague' }
+    ]
+  };
+});
+mem[KEY] = histSeed;
+progress = fresh();
+progress.init();
+
+let h = progress.getHistory(10, 0);
+ok('历史天数 = 2（尚未学习今天）', h.total === 2);
+ok('按日期倒序，最新在前', h.days[0].date > h.days[1].date);
+ok('能看到昨天', h.days.some(function (x) { return x.date === '2026-09-18'; }));
+ok('能看到更早的记录', h.days.some(function (x) { return x.date === '2026-09-17'; }));
+ok('每天带单词与释义', h.days[1].words.length === 2 && h.days[1].words[0].m === '释义A');
+ok('评价转中文标签', h.days[1].words[0].rText === '认识' && h.days[1].words[1].rText === '模糊');
+
+// 学习后当天明细追加，且排到最前
+progress.rate('daily', progress.getSession('daily').q[0], 'wrong');
+h = progress.getHistory(10, 0);
+ok('学习后新增今天，且排第一', h.total === 3 && h.days[0].isToday === true);
+ok('今日记录含刚学的词与释义', h.days[0].words.some(function (x) { return x.m && x.m.length > 0; }));
+ok('今日记录含不认识标签', h.days[0].words.some(function (x) { return x.rText === '不认识'; }));
+
+// 分页
+const page1 = progress.getHistory(2, 0);
+ok('分页：首页 2 条且提示还有更多', page1.days.length === 2 && page1.hasMore === true);
+const page2 = progress.getHistory(2, 2);
+ok('分页：第二页 1 条且无更多', page2.days.length === 1 && page2.hasMore === false);
+ok('分页：两页不重复且覆盖全部',
+  page1.days[0].date !== page2.days[0].date && (page1.days.length + page2.days.length) === 3);
+
+// 空状态
+delete mem[KEY];
+const emptyH = fresh().getHistory(10, 0);
+ok('无记录时返回空列表', emptyH.total === 0 && emptyH.days.length === 0 && emptyH.hasMore === false);
+
 console.log('\n全部通过：' + passed + ' 项 ✓');

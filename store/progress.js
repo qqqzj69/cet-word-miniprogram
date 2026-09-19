@@ -17,6 +17,7 @@ const INTERVAL_DAYS = [1, 2, 4, 7, 15, 30];
 const DAY = 24 * 60 * 60 * 1000;
 const TEN_MIN = 10 * 60 * 1000;
 const WRONG_QUEUE_CAP = 50;
+const MAX_DAILY_LIST = 200;   // 单日历史明细上限，防止长期使用时存储无限膨胀
 
 let db = null;
 
@@ -159,11 +160,19 @@ function rate(mode, word, rating) {
   d.words[word] = st;
 
   const t = today();
-  const dayRec = d.daily[t] || { learned: 0, right: 0, vague: 0, wrong: 0 };
+  const dayRec = d.daily[t] || { learned: 0, right: 0, vague: 0, wrong: 0, list: [] };
   dayRec.learned++;
   if (rating === 'right') dayRec.right++;
   else if (rating === 'vague') dayRec.vague++;
   else dayRec.wrong++;
+
+  // 记录当日学习明细（单词 + 释义 + 评价），供「每日背单词历史」展示
+  if (!Array.isArray(dayRec.list)) dayRec.list = [];
+  const detail = dict.getWord(d.level, word);
+  dayRec.list.push({ w: word, m: detail ? detail.m : '', r: rating });
+  if (dayRec.list.length > MAX_DAILY_LIST) {
+    dayRec.list = dayRec.list.slice(dayRec.list.length - MAX_DAILY_LIST);
+  }
   d.daily[t] = dayRec;
 
   const s = d.sessions[mode];
@@ -190,6 +199,57 @@ function checkin() {
 }
 
 /* ---------------- 查询 ---------------- */
+
+/* ---------------- 每日历史 ---------------- */
+
+function ratingText(r) {
+  if (r === 'right') return '认识';
+  if (r === 'vague') return '模糊';
+  if (r === 'wrong') return '不认识';
+  return '';
+}
+
+/**
+ * 分页取「每日背单词历史」，按日期倒序
+ * @param {number} limit  本页天数，0 表示全部
+ * @param {number} offset 已加载天数
+ * @returns {{days: Array, total: number, hasMore: boolean}}
+ */
+function getHistory(limit, offset) {
+  const d = getDb();
+  const dates = Object.keys(d.daily).sort().reverse();
+  const total = dates.length;
+  const start = offset > 0 ? offset : 0;
+  const end = (limit && limit > 0) ? Math.min(total, start + limit) : total;
+  const slice = dates.slice(start, end);
+
+  const days = slice.map(function (ds) {
+    const rec = d.daily[ds] || {};
+    const list = Array.isArray(rec.list) ? rec.list : [];
+    return {
+      date: ds,
+      shortDate: dateUtil.shortDate(ds),
+      label: dateUtil.weekday(ds),
+      isToday: ds === today(),
+      isYesterday: ds === dateUtil.offsetStr(-1),
+      learned: rec.learned || list.length || 0,
+      right: rec.right || 0,
+      vague: rec.vague || 0,
+      wrong: rec.wrong || 0,
+      hasWords: list.length > 0,
+      words: list.map(function (x, i) {
+        return { id: i + '-' + x.w, w: x.w, m: x.m, r: x.r, rText: ratingText(x.r) };
+      })
+    };
+  });
+
+  return { days: days, total: total, hasMore: end < total };
+}
+
+/** 有记录的天数，用于首页入口的角标 */
+function getHistoryDays() {
+  return Object.keys(getDb().daily).length;
+}
 
 /** 当前词库的学习进度 */
 function getLevelProgress() {
@@ -308,5 +368,7 @@ module.exports = {
   getStats: getStats,
   getLevelProgress: getLevelProgress,
   getWrongList: getWrongList,
+  getHistory: getHistory,
+  getHistoryDays: getHistoryDays,
   resetAll: resetAll
 };

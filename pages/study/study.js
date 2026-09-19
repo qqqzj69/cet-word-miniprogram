@@ -9,7 +9,7 @@ Page({
     total: 0,
     barPct: 0,
     item: null,
-    flipped: false,
+    revealed: false,
     showCard: true,
     finished: false,
     counts: { right: 0, vague: 0, wrong: 0 },
@@ -60,7 +60,7 @@ Page({
     this.setData({
       finished: false,
       item: item,
-      flipped: false,
+      revealed: false,
       showCard: true,
       done: s.i,
       total: s.q.length,
@@ -73,25 +73,42 @@ Page({
     return st.checkedToday;
   },
 
-  onFlip() {
+  /**
+   * 点击卡片：
+   *   未显示释义 → 立即显示中文释义（无翻卡动画）
+   *   已显示释义 → 视为「认识」，直接进入下一个单词
+   */
+  onCardTap() {
     if (this.data.finished || !this.data.item) return;
-    if (!this.data.flipped) this.setData({ flipped: true });
+    if (!this.data.revealed) {
+      this.setData({ revealed: true });
+      return;
+    }
+    this.commit('right');
   },
 
+  /**
+   * 底部按钮：任何时候都可以直接标记，不要求先显示释义
+   */
   onRate(e) {
-    if (!this.data.item || !this.data.flipped) return;
+    if (this.data.finished || !this.data.item) return;
     const rating = e.currentTarget.dataset.r;
     if (rating !== 'right' && rating !== 'vague' && rating !== 'wrong') return;
+    this.commit(rating);
+  },
 
+  /** 提交评价并进入下一个单词 */
+  commit(rating) {
+    if (!this.data.item) return;
     const word = this.data.item.w;
     progress.rate(this.mode, word, rating);
     this.counts[rating]++;
 
     if (wx.vibrateShort) wx.vibrateShort({ type: 'light' });
 
-    // 先滑出旧卡，再载入下一张（通过重挂载触发入场动画）
+    // 先移除旧卡，再载入下一张（通过重挂载触发入场动画）
     const self = this;
-    this.setData({ showCard: false, flipped: false });
+    this.setData({ showCard: false, revealed: false });
     setTimeout(function () {
       self.session = progress.getSession(self.mode) || self.session;
       self.syncCurrent();

@@ -1,0 +1,68 @@
+<view class="bg">
+  <view class="blob blob-1"></view>
+  <view class="blob blob-2"></view>
+  <view class="blob blob-3"></view>
+</view>
+
+<view class="page-pad">
+  <!-- 顶部 -->
+  <view class="h-head fade-up">
+    <view>
+      <view class="h1">背单词历史</view>
+      <view class="t3 h-sub num" wx:if="{{total > 0}}">累计 {{total}} 天有学习记录</view>
+      <view class="t3 h-sub" wx:else>还没有学习记录</view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="card h-empty fade-up" wx:if="{{empty}}">
+    <view class="h-empty-icon">📖</view>
+    <view class="h3">还没有背过单词</view>
+    <view class="t3 h-empty-sub">回到首页开始今天的學習，之后每天学过的词都会留在这里</view>
+    <view class="btn btn-primary h-empty-btn" bindtap="goStudy">去背单词</view>
+  </view>
+
+  <!-- 历史列表：按日期倒序 -->
+  <view class="h-list" wx:else>
+    <view
+      class="card h-day fade-up"
+      wx:for="{{days}}"
+      wx:key="date"
+      data-date="{{item.date}}"
+      bindtap="onToggle"
+    >
+      <view class="h-day-head">
+        <view class="h-day-left">
+          <view class="h-day-date">
+            <text class="h-day-md num">{{item.shortDate}}</text>
+            <text class="h-day-week">{{item.label}}</text>
+            <text class="chip h-day-today" wx:if="{{item.isToday}}">今天</text>
+            <text class="chip" wx:elif="{{item.isYesterday}}">昨天</text>
+          </view>
+          <view class="t3 h-day-meta num">
+            学 {{item.learned}} 词 · 认识 {{item.right}} · 模糊 {{item.vague}} · 不认识 {{item.wrong}}
+          </view>
+        </view>
+        <view class="h-day-arrow {{expanded === item.date ? 'h-day-arrow-open' : ''}}">›</view>
+      </view>
+
+      <!-- 展开：当日单词列表 -->
+      <view class="h-day-detail {{expanded === item.date ? 'h-day-detail-open' : ''}}">
+        <view class="h-day-empty t3" wx:if="{{!item.hasWords}}">这天没有留下单词明细</view>
+        <view class="h-word" wx:for="{{item.words}}" wx:for-item="w" wx:key="id">
+          <view class="h-word-main">
+            <view class="h-word-en">{{w.w}}</view>
+            <view class="t3 h-word-cn">{{w.m}}</view>
+          </view>
+          <view class="h-word-tag h-word-{{w.r}}">{{w.rText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="h-more" wx:if="{{hasMore}}">
+      <view class="btn btn-ghost" bindtap="onLoadMore">{{loading ? '加载中…' : '加载更早的记录'}}</view>
+    </view>
+    <view class="t3 h-end" wx:else>已经到最早的一天啦</view>
+  </view>
+</view>

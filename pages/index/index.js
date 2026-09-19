@@ -14,7 +14,8 @@ Page({
     ov: null,
     percent: 0,
     heroBtn: '',
-    greeting: ''
+    greeting: '',
+    historyDays: 0
   },
 
   onShow() {
@@ -27,7 +28,13 @@ Page({
     if (ov.queueTotal === 0) heroBtn = '今日词库已清空';
     else if (ov.done >= ov.queueTotal) heroBtn = '今日任务已完成';
     else if (ov.done > 0) heroBtn = '继续学习';
-    this.setData({ ov: ov, percent: percent, heroBtn: heroBtn, greeting: greeting() });
+    this.setData({
+      ov: ov,
+      percent: percent,
+      heroBtn: heroBtn,
+      greeting: greeting(),
+      historyDays: progress.getHistoryDays()
+    });
   },
 
   goStudy() {
@@ -41,6 +48,10 @@ Page({
 
   goWrong() {
     wx.navigateTo({ url: '/pages/wrong/wrong' });
+  },
+
+  goHistory() {
+    wx.navigateTo({ url: '/pages/history/history' });
   },
 
   onCheckin() {

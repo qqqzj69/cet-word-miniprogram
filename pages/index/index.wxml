@@ -42,6 +42,18 @@
     <view class="row-arrow">›</view>
   </view>
 
+  <!-- 每日历史入口 -->
+  <view class="card row-card fade-up" bindtap="goHistory" hover-class="row-hover">
+    <view class="row-left">
+      <view class="row-icon" style="background:rgba(10,132,255,0.14);color:var(--brand)">历</view>
+      <view class="row-text">
+        <view class="h3">每日背单词历史</view>
+        <view class="t3 row-sub num">{{historyDays > 0 ? '累计 ' + historyDays + ' 天记录，可查看昨天与更早' : '还没有学习记录'}}</view>
+      </view>
+    </view>
+    <view class="row-arrow">›</view>
+  </view>
+
   <!-- 打卡 -->
   <view class="card row-card fade-up" bindtap="onCheckin" hover-class="row-hover">
     <view class="row-left">
