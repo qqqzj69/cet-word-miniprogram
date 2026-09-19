@@ -19,7 +19,9 @@ Page({
     historyDays: 0,
     kw: '',
     results: [],
-    searching: false
+    searching: false,
+    remaining: 0,
+    showRemaining: false
   },
 
   onShow() {
@@ -31,12 +33,19 @@ Page({
     let heroBtn = '开始学习';
     if (ov.done >= ov.queueTotal && ov.queueTotal > 0) heroBtn = '继续加练';
     else if (ov.done > 0) heroBtn = '继续学习';
+
+    // 「还差多少词」只在今天第一次开始、还没背过时提示；
+    // 一旦进入「继续学习/继续加练」就不再显示，避免造成压力
+    const showRemaining = ov.done === 0 && !ov.checkedToday && ov.queueTotal > 0;
+
     this.setData({
       ov: ov,
       percent: percent,
       heroBtn: heroBtn,
       greeting: greeting(),
-      historyDays: progress.getHistoryDays()
+      historyDays: progress.getHistoryDays(),
+      remaining: Math.max(0, ov.queueTotal - ov.done),
+      showRemaining: showRemaining
     });
   },
 

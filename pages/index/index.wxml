@@ -57,7 +57,8 @@
     <view class="btn btn-primary hero-btn" hover-class="hero-btn-hover" bindtap="goStudy">
       {{heroBtn}}
     </view>
-    <view class="t3 hero-foot num">今日已学 {{ov.today.learned}} 词 · 连续 {{ov.streak}} 天</view>
+    <view class="t3 hero-foot num" wx:if="{{showRemaining}}">今天还差 {{remaining}} 词</view>
+    <view class="t3 hero-foot num" wx:else>今日已学 {{ov.today.learned}} 词 · 连续 {{ov.streak}} 天</view>
   </view>
 
   <!-- 辅助入口（弱化：三个紧凑入口 + 一行进度） -->
