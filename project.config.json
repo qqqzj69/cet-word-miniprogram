@@ -1,7 +1,7 @@
 {
   "description": "贝贝四六级 · 英语四六级背单词小程序（离线 · 零依赖 · 本地持久化）",
   "compileType": "miniprogram",
-  "appid": "touristappid",
+  "appid": "wxabf67554ba883f3e",
   "projectname": "贝贝四六级",
   "libVersion": "3.0.0",
   "setting": {
@@ -18,23 +18,55 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "condition": false
   },
   "condition": {},
   "packOptions": {
     "ignore": [
-      { "type": "folder", "value": "tools" },
-      { "type": "folder", "value": "tests" },
-      { "type": "folder", "value": "docs" },
-      { "type": "file", "value": "README.md" },
-      { "type": "file", "value": ".gitignore" },
-      { "type": "suffix", "value": ".miora" },
-      { "type": "folder", "value": "贝贝四六级-头像方案_assets" }
+      {
+        "value": "tools",
+        "type": "folder"
+      },
+      {
+        "value": "tests",
+        "type": "folder"
+      },
+      {
+        "value": "docs",
+        "type": "folder"
+      },
+      {
+        "value": "README.md",
+        "type": "file"
+      },
+      {
+        "value": ".gitignore",
+        "type": "file"
+      },
+      {
+        "value": ".miora",
+        "type": "suffix"
+      },
+      {
+        "value": "贝贝四六级-头像方案_assets",
+        "type": "folder"
+      }
     ],
     "include": []
   },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "simulatorPluginLibVersion": {}
 }
