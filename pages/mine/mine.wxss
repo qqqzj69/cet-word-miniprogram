@@ -1,0 +1,152 @@
+/* ---------- 顶部概览 ---------- */
+.m-head {
+  margin-top: 12rpx;
+  padding: 44rpx 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-head-ring {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-head-sub {
+  font-size: 24rpx;
+  margin-top: 4rpx;
+}
+
+.m-head-meta {
+  display: flex;
+  gap: 40rpx;
+}
+
+.m-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.m-meta-num {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.m-meta-label { font-size: 22rpx; }
+
+/* ---------- 分块 ---------- */
+.m-block {
+  margin-top: 24rpx;
+  padding: 32rpx;
+}
+
+.m-block-title {
+  margin-bottom: 24rpx;
+}
+
+.m-hover { transform: scale(0.985); transition: transform 0.12s ease; }
+
+/* ---------- 词库选择 ---------- */
+.m-levels {
+  display: flex;
+  gap: 20rpx;
+}
+
+.m-level {
+  flex: 1;
+  position: relative;
+  padding: 28rpx;
+  border-radius: var(--r-md);
+  background: var(--bg-soft);
+  border: 2rpx solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.12s ease;
+}
+
+.m-level-on {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.m-level-name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.m-level-count {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--ink-3);
+}
+
+.m-level-check {
+  position: absolute;
+  top: 20rpx;
+  right: 24rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- 每日目标 ---------- */
+.m-goals {
+  display: flex;
+  gap: 16rpx;
+}
+
+.m-goal {
+  flex: 1;
+  height: 88rpx;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: 2rpx solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.m-goal-on {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.m-goal-tip {
+  margin-top: 20rpx;
+  font-size: 22rpx;
+}
+
+/* ---------- 数据行 ---------- */
+.m-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+}
+
+.m-row + .m-row {
+  border-top: 1rpx solid var(--line);
+}
+
+.m-row-arrow {
+  color: var(--ink-3);
+  font-size: 40rpx;
+  line-height: 1;
+}
+
+.m-foot {
+  text-align: center;
+  margin-top: 40rpx;
+  font-size: 22rpx;
+}

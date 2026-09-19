@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "背单词",
+  "disableScroll": true,
+  "usingComponents": {
+    "word-card": "/components/word-card/index"
+  }
+}

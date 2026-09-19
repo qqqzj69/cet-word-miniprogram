@@ -1,0 +1,180 @@
+/* ---------- 打卡主卡 ---------- */
+.s-hero {
+  margin-top: 12rpx;
+  padding: 44rpx 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(245, 166, 35, 0.10) 0%, rgba(255, 107, 91, 0.08) 100%);
+}
+
+.s-streak {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.s-streak-num {
+  font-size: 88rpx;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--amber);
+  letter-spacing: -2rpx;
+}
+
+.s-streak-unit {
+  font-size: 30rpx;
+  color: var(--amber);
+}
+
+.s-streak-label {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+}
+
+.s-streak-sub {
+  margin-top: 2rpx;
+  font-size: 22rpx;
+}
+
+.s-checkin {
+  width: 220rpx;
+  height: 88rpx;
+  font-size: 28rpx;
+}
+
+/* ---------- 今日数据 ---------- */
+.s-grid {
+  margin-top: 24rpx;
+  display: flex;
+  gap: 24rpx;
+}
+
+.s-cell {
+  flex: 1;
+  padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.s-cell-num {
+  font-size: 52rpx;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.s-cell-label { font-size: 24rpx; }
+
+/* ---------- 近 7 天 ---------- */
+.s-week {
+  margin-top: 24rpx;
+  padding: 32rpx;
+}
+
+.s-week-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.s-week-total { font-size: 24rpx; }
+
+.s-chart {
+  margin-top: 32rpx;
+  display: flex;
+  align-items: flex-end;
+  gap: 16rpx;
+  height: 280rpx;
+}
+
+.s-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.s-col-val {
+  font-size: 22rpx;
+  color: var(--ink-2);
+  line-height: 1;
+}
+
+.s-bar-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.s-bar {
+  width: 32rpx;
+  min-height: 8rpx;
+  border-radius: 999rpx;
+  background: var(--bg-soft);
+  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.s-bar-hot {
+  background: linear-gradient(180deg, var(--brand) 0%, var(--brand-2) 100%);
+}
+
+.s-col-label {
+  font-size: 22rpx;
+}
+
+.s-col-label-hot {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* ---------- 累计 ---------- */
+.s-acc {
+  margin-top: 24rpx;
+  padding: 32rpx;
+}
+
+.s-acc-grid {
+  margin-top: 28rpx;
+  display: flex;
+}
+
+.s-acc-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.s-acc-num {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.s-acc-label { font-size: 22rpx; }
+
+.prog-bar {
+  margin-top: 32rpx;
+  height: 16rpx;
+  border-radius: 999rpx;
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.s-acc-foot {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  text-align: center;
+}

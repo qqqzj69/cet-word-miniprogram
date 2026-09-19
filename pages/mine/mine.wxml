@@ -1,0 +1,69 @@
+<view class="page-pad">
+  <!-- 顶部概览 -->
+  <view class="card m-head fade-up">
+    <view class="m-head-ring">
+      <view class="h1 num">{{counts.learned}}</view>
+      <view class="t3 m-head-sub">已学 / {{counts.total}} 词</view>
+    </view>
+    <view class="m-head-meta">
+      <view class="m-meta-item">
+        <view class="m-meta-num num" style="color:var(--green)">{{counts.mastered}}</view>
+        <view class="t3 m-meta-label">已掌握</view>
+      </view>
+      <view class="m-meta-item">
+        <view class="m-meta-num num" style="color:var(--coral)">{{counts.wrong}}</view>
+        <view class="t3 m-meta-label">错词</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 词库选择 -->
+  <view class="card m-block fade-up">
+    <view class="h3 m-block-title">词库</view>
+    <view class="m-levels">
+      <view
+        class="m-level {{level === item.key ? 'm-level-on' : ''}}"
+        wx:for="{{levels}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onPickLevel"
+        hover-class="m-hover"
+      >
+        <view class="m-level-name">{{item.name}}</view>
+        <view class="m-level-count num">{{item.count}} 词</view>
+        <view class="m-level-check" wx:if="{{level === item.key}}">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 每日目标 -->
+  <view class="card m-block fade-up">
+    <view class="h3 m-block-title">每日目标</view>
+    <view class="m-goals">
+      <view
+        class="m-goal num {{goal === item ? 'm-goal-on' : ''}}"
+        wx:for="{{goalOptions}}"
+        wx:key="*this"
+        data-n="{{item}}"
+        bindtap="onPickGoal"
+        hover-class="m-hover"
+      >{{item}}</view>
+    </view>
+    <view class="t3 m-goal-tip">单位：词 / 天，修改后今日队列立即生效</view>
+  </view>
+
+  <!-- 数据 -->
+  <view class="card m-block fade-up">
+    <view class="h3 m-block-title">数据</view>
+    <view class="m-row" hover-class="m-hover" bindtap="onClear">
+      <text class="m-row-text" style="color:var(--coral)">清空学习数据</text>
+      <text class="m-row-arrow">›</text>
+    </view>
+    <view class="m-row" hover-class="m-hover" bindtap="onAbout">
+      <text class="m-row-text">关于 / 词库来源</text>
+      <text class="m-row-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="t3 m-foot">本地数据 · 关闭小程序后依然保留，仅主动清空时删除</view>
+</view>

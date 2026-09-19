@@ -1,0 +1,63 @@
+<view class="study">
+  <!-- 顶部：退出 + 进度 -->
+  <view class="study-top">
+    <view class="study-close" hover-class="study-close-hover" bindtap="onClose">✕</view>
+    <view class="study-prog num">
+      <text class="study-prog-cur">{{done}}</text>
+      <text class="t3"> / {{total}}</text>
+    </view>
+    <view class="chip">{{levelName}}</view>
+  </view>
+  <view class="study-bar">
+    <view class="study-bar-fill" style="width:{{barPct}}%"></view>
+  </view>
+
+  <!-- 学习中 -->
+  <block wx:if="{{!finished}}">
+    <view class="study-stage" wx:if="{{showCard}}">
+      <word-card class="fade-up" item="{{item}}" flipped="{{flipped}}" bind:flip="onFlip" />
+    </view>
+
+    <view class="study-actions">
+      <view class="ra ra-wrong {{flipped ? '' : 'ra-off'}}" hover-class="ra-hover" bindtap="onRate" data-r="wrong">
+        <text class="ra-title">不认识</text>
+      </view>
+      <view class="ra ra-vague {{flipped ? '' : 'ra-off'}}" hover-class="ra-hover" bindtap="onRate" data-r="vague">
+        <text class="ra-title">模糊</text>
+      </view>
+      <view class="ra ra-right {{flipped ? '' : 'ra-off'}}" hover-class="ra-hover" bindtap="onRate" data-r="right">
+        <text class="ra-title">认识</text>
+      </view>
+    </view>
+
+    <view class="study-tip t3">{{flipped ? '凭印象评价，记错的词会更快回来' : '先回忆词义，再点击卡片揭晓'}}</view>
+  </block>
+
+  <!-- 完成 -->
+  <block wx:else>
+    <view class="study-done card pop">
+      <view class="study-done-badge">✓</view>
+      <view class="h2">本轮学习完成</view>
+      <view class="study-done-grid num">
+        <view class="study-done-cell">
+          <view class="study-done-num" style="color:var(--green)">{{counts.right}}</view>
+          <view class="t3 study-done-label">认识</view>
+        </view>
+        <view class="study-done-cell">
+          <view class="study-done-num" style="color:var(--amber)">{{counts.vague}}</view>
+          <view class="t3 study-done-label">模糊</view>
+        </view>
+        <view class="study-done-cell">
+          <view class="study-done-num" style="color:var(--coral)">{{counts.wrong}}</view>
+          <view class="t3 study-done-label">不认识</view>
+        </view>
+      </view>
+      <view class="study-done-btns">
+        <view class="btn btn-primary" wx:if="{{!checkedToday}}" bindtap="onCheckin">立即打卡</view>
+        <view class="btn {{checkedToday ? 'btn-primary' : 'btn-ghost'}}" bindtap="onClose">
+          {{checkedToday ? '返回' : '稍后再说'}}
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

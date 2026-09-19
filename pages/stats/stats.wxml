@@ -1,0 +1,75 @@
+<view class="page-pad" wx:if="{{st}}">
+  <!-- 打卡主卡 -->
+  <view class="card s-hero fade-up">
+    <view class="s-hero-left">
+      <view class="s-streak num">
+        <text class="s-streak-num">{{st.streak}}</text>
+        <text class="s-streak-unit">天</text>
+      </view>
+      <view class="t2 s-streak-label">连续打卡</view>
+      <view class="t3 s-streak-sub num">累计 {{st.totalCheckins}} 天</view>
+    </view>
+    <view
+      class="btn s-checkin {{st.checkedToday ? 'btn-disabled' : ''}}"
+      bindtap="onCheckin"
+    >
+      {{st.checkedToday ? '今日已打卡' : '立即打卡'}}
+    </view>
+  </view>
+
+  <!-- 今日数据 -->
+  <view class="s-grid fade-up">
+    <view class="card s-cell">
+      <view class="s-cell-num num">{{st.today.learned}}</view>
+      <view class="t3 s-cell-label">今日学习</view>
+    </view>
+    <view class="card s-cell">
+      <view class="s-cell-num num">{{st.accuracy}}%</view>
+      <view class="t3 s-cell-label">今日正确率</view>
+    </view>
+  </view>
+
+  <!-- 近 7 日 -->
+  <view class="card s-week fade-up">
+    <view class="s-week-head">
+      <view class="h3">近 7 天学习量</view>
+      <view class="t3 s-week-total num">共 {{st.weekTotal}} 词</view>
+    </view>
+    <view class="s-chart">
+      <view class="s-col" wx:for="{{weekBars}}" wx:key="date">
+        <view class="s-col-val num" wx:if="{{!item.isEmpty}}">{{item.learned}}</view>
+        <view class="s-bar-track">
+          <view class="s-bar {{item.isToday ? 's-bar-hot' : ''}}" style="height:{{item.hPct}}%"></view>
+        </view>
+        <view class="t3 s-col-label {{item.isToday ? 's-col-label-hot' : ''}}">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 累计 -->
+  <view class="card s-acc fade-up">
+    <view class="h3">{{st.levelName}} · 累计</view>
+    <view class="s-acc-grid num">
+      <view class="s-acc-cell">
+        <view class="s-acc-num">{{st.acc.learned}}</view>
+        <view class="t3 s-acc-label">已学词数</view>
+      </view>
+      <view class="s-acc-cell">
+        <view class="s-acc-num" style="color:var(--green)">{{st.acc.mastered}}</view>
+        <view class="t3 s-acc-label">已掌握</view>
+      </view>
+      <view class="s-acc-cell">
+        <view class="s-acc-num" style="color:var(--coral)">{{st.acc.wrong}}</view>
+        <view class="t3 s-acc-label">错词</view>
+      </view>
+      <view class="s-acc-cell">
+        <view class="s-acc-num">{{st.totalLearned}}</view>
+        <view class="t3 s-acc-label">累计学习</view>
+      </view>
+    </view>
+    <view class="prog-bar">
+      <view class="prog-fill" style="width:{{st.acc.total ? (st.acc.learned * 100 / st.acc.total) : 0}}%"></view>
+    </view>
+    <view class="t3 s-acc-foot num">词库进度 {{st.acc.learned}} / {{st.acc.total}}</view>
+  </view>
+</view>

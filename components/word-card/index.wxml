@@ -1,0 +1,19 @@
+<view class="wc {{flipped ? 'is-flipped' : ''}}" bindtap="onTap" wx:if="{{item}}">
+  <view class="wc-inner">
+    <!-- 正面：单词 -->
+    <view class="wc-face wc-front">
+      <text class="wc-word">{{item.w}}</text>
+      <view class="wc-hint">
+        <view class="wc-hint-dot"></view>
+        <text>点击查看释义</text>
+      </view>
+    </view>
+    <!-- 背面：释义 -->
+    <view class="wc-face wc-back">
+      <text class="wc-word-sm">{{item.w}}</text>
+      <scroll-view scroll-y class="wc-scroll" enhanced show-scrollbar="{{false}}">
+        <text class="wc-meaning">{{item.m}}</text>
+      </scroll-view>
+    </view>
+  </view>
+</view>

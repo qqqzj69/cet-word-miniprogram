@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "CET 词汇",
+  "usingComponents": {
+    "progress-ring": "/components/progress-ring/index"
+  }
+}

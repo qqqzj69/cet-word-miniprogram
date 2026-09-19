@@ -1,0 +1,48 @@
+<view class="page-pad">
+  <!-- 顶部 -->
+  <view class="w-head fade-up">
+    <view>
+      <view class="h1">错词本</view>
+      <view class="t3 w-sub num">{{list.length}} 个词 · {{levelName}}</view>
+    </view>
+  </view>
+
+  <!-- 复习入口 -->
+  <view class="card w-cta fade-up {{list.length === 0 ? 'btn-disabled' : ''}}" bindtap="onStartReview">
+    <view class="w-cta-left">
+      <view class="h3">开始错词复习</view>
+      <view class="t3 w-cta-sub">优先复习错误次数最多的词</view>
+    </view>
+    <view class="w-cta-arrow">›</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="card w-empty fade-up" wx:if="{{list.length === 0}}">
+    <view class="w-empty-icon">🎉</view>
+    <view class="h3">错词本空空如也</view>
+    <view class="t3 w-empty-sub">在背单词时点了「不认识」的词会自动收进来</view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="w-list" wx:else>
+    <view
+      class="card w-item fade-up"
+      wx:for="{{list}}"
+      wx:key="w"
+      data-w="{{item.w}}"
+      bindtap="onToggle"
+    >
+      <view class="w-item-row">
+        <view class="w-item-main">
+          <view class="h3">{{item.w}}</view>
+          <view class="t3 w-item-sub num">答错 {{item.wrong}} 次</view>
+        </view>
+        <view class="w-item-arrow {{expanded === item.w ? 'w-item-arrow-open' : ''}}">›</view>
+      </view>
+      <view class="w-item-detail {{expanded === item.w ? 'w-item-detail-open' : ''}}">
+        <view class="w-item-meaning">{{item.m}}</view>
+        <view class="btn btn-ghost w-item-btn" catchtap="onMaster" data-w="{{item.w}}">标记为已掌握</view>
+      </view>
+    </view>
+  </view>
+</view>

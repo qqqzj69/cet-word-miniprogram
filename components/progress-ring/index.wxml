@@ -1,0 +1,11 @@
+<view
+  class="ring"
+  style="width:{{size}}rpx;height:{{size}}rpx;background:conic-gradient(var(--brand) 0turn {{percent / 100}}turn, var(--bg-soft) {{percent / 100}}turn 1turn)"
+>
+  <view
+    class="ring-hole"
+    style="width:calc({{size}}rpx - {{stroke * 2}}rpx);height:calc({{size}}rpx - {{stroke * 2}}rpx)"
+  >
+    <slot></slot>
+  </view>
+</view>

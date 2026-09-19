@@ -1,0 +1,59 @@
+<view class="page-pad" wx:if="{{ov}}">
+  <!-- 顶部问候 -->
+  <view class="head fade-up">
+    <view class="head-left">
+      <view class="h1">{{greeting}}</view>
+      <view class="t3 head-date">{{ov.date}} · {{ov.weekday}}</view>
+    </view>
+    <view class="chip">{{ov.levelName}}</view>
+  </view>
+
+  <!-- 今日任务主卡 -->
+  <view class="card hero fade-up">
+    <view class="hero-ring-wrap">
+      <progress-ring percent="{{percent}}" size="300" stroke="20">
+        <view class="hero-ring">
+          <view class="h1 num">{{ov.done}}</view>
+          <view class="t3 hero-sub">/ {{ov.queueTotal}} 词</view>
+        </view>
+      </progress-ring>
+    </view>
+    <view class="btn btn-primary hero-btn {{ov.done >= ov.queueTotal || ov.queueTotal === 0 ? 'btn-disabled' : ''}}" bindtap="goStudy">
+      {{heroBtn}}
+    </view>
+    <view class="t3 hero-foot num">今日已学 {{ov.today.learned}} 词 · 连续打卡 {{ov.streak}} 天</view>
+  </view>
+
+  <!-- 错词本入口 -->
+  <view class="card row-card fade-up" bindtap="goWrong" hover-class="row-hover">
+    <view class="row-left">
+      <view class="row-icon" style="background:rgba(255,107,91,0.12);color:var(--coral)">错</view>
+      <view class="row-text">
+        <view class="h3">错词本</view>
+        <view class="t3 row-sub num">{{ov.acc.wrong}} 个词待巩固</view>
+      </view>
+    </view>
+    <view class="row-arrow">›</view>
+  </view>
+
+  <!-- 打卡 -->
+  <view class="card row-card fade-up" bindtap="onCheckin" hover-class="row-hover">
+    <view class="row-left">
+      <view class="row-icon" style="background:rgba(245,166,35,0.14);color:var(--amber)">连</view>
+      <view class="row-text">
+        <view class="h3">每日打卡</view>
+        <view class="t3 row-sub num">已连续 {{ov.streak}} 天，累计 {{ov.acc.learned ? ov.acc.learned : 0}} 词在学</view>
+      </view>
+    </view>
+    <view class="chip {{ov.checkedToday ? 'chip-done' : ''}}">{{ov.checkedToday ? '已打卡' : '去打卡'}}</view>
+  </view>
+
+  <!-- 词库进度 -->
+  <view class="card prog-card fade-up">
+    <view class="h3">{{ov.levelName}} · 学习进度</view>
+    <view class="prog-bar">
+      <view class="prog-fill" style="width:{{ov.acc.total ? (ov.acc.learned * 100 / ov.acc.total) : 0}}%"></view>
+    </view>
+    <view class="t3 prog-foot num">已学 {{ov.acc.learned}} / {{ov.acc.total}} 词，已掌握 {{ov.acc.mastered}} 词</view>
+  </view>
+</view>
