@@ -13,11 +13,11 @@
     </view>
     <view class="m-head-meta">
       <view class="m-meta-item">
-        <view class="m-meta-num num" style="color:#7BF0A0">{{counts.mastered}}</view>
+        <view class="m-meta-num num" style="color:#248A3D">{{counts.mastered}}</view>
         <view class="t3 m-meta-label">已掌握</view>
       </view>
       <view class="m-meta-item">
-        <view class="m-meta-num num" style="color:#FF7A70">{{counts.wrong}}</view>
+        <view class="m-meta-num num" style="color:#FF3B30">{{counts.wrong}}</view>
         <view class="t3 m-meta-label">错词</view>
       </view>
     </view>
@@ -62,7 +62,7 @@
   <view class="card m-block fade-up">
     <view class="h3 m-block-title">数据</view>
     <view class="m-row" hover-class="m-hover" bindtap="onClear">
-      <text class="m-row-text" style="color:#FF7A70">清空学习数据</text>
+      <text class="m-row-text" style="color:#FF3B30">清空学习数据</text>
       <text class="m-row-arrow">›</text>
     </view>
     <view class="m-row" hover-class="m-hover" bindtap="onAbout">

@@ -1,22 +1,22 @@
 {
   "light": {
-    "navBg": "#1B2A5B",
-    "navTxt": "white",
-    "bg": "#1B2A5B",
-    "bgTxt": "light",
-    "tabColor": "#8E96B8",
-    "tabSel": "#64D2FF",
-    "tabBg": "#141A38",
-    "tabBorder": "black"
+    "navBg": "#EDF3FF",
+    "navTxt": "black",
+    "bg": "#EDF3FF",
+    "bgTxt": "dark",
+    "tabColor": "#8E8E93",
+    "tabSel": "#0A84FF",
+    "tabBg": "#F7F9FE",
+    "tabBorder": "white"
   },
   "dark": {
-    "navBg": "#0A1026",
-    "navTxt": "white",
-    "bg": "#0A1026",
-    "bgTxt": "light",
-    "tabColor": "#8E96B8",
-    "tabSel": "#64D2FF",
-    "tabBg": "#141A38",
-    "tabBorder": "black"
+    "navBg": "#EDF3FF",
+    "navTxt": "black",
+    "bg": "#EDF3FF",
+    "bgTxt": "dark",
+    "tabColor": "#8E8E93",
+    "tabSel": "#0A84FF",
+    "tabBg": "#F7F9FE",
+    "tabBorder": "white"
   }
 }

@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, rgba(100, 210, 255, 0.24) 0%, rgba(125, 122, 255, 0.22) 100%);
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.16) 0%, rgba(94, 92, 230, 0.14) 100%);
 }
 
 .m-head-ring {
@@ -62,14 +62,14 @@
   position: relative;
   padding: 28rpx;
   border-radius: var(--r-md);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1rpx solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1rpx solid rgba(255, 255, 255, 0.9);
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.12s ease;
 }
 
 .m-level-on {
-  border-color: rgba(100, 210, 255, 0.75);
-  background: rgba(100, 210, 255, 0.18);
+  border-color: var(--brand);
+  background: rgba(10, 132, 255, 0.14);
 }
 
 .m-level-name {
@@ -108,8 +108,8 @@
   flex: 1;
   height: 88rpx;
   border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1rpx solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1rpx solid rgba(255, 255, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,9 +119,9 @@
 }
 
 .m-goal-on {
-  border-color: rgba(100, 210, 255, 0.75);
-  background: rgba(100, 210, 255, 0.18);
-  color: #fff;
+  border-color: var(--brand);
+  background: rgba(10, 132, 255, 0.14);
+  color: var(--brand);
 }
 
 .m-goal-tip {
@@ -141,11 +141,11 @@
 }
 
 .m-row + .m-row {
-  border-top: 1rpx solid rgba(255, 255, 255, 0.14);
+  border-top: 1rpx solid var(--hair);
 }
 
 .m-row-arrow {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--ink-3);
   font-size: 40rpx;
   line-height: 1;
 }

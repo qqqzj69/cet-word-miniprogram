@@ -11,9 +11,9 @@ import zlib
 SIZE = 81
 SS = 4  # supersample factor
 
-# 深色底栏配色：未选中为浅灰，选中为 Apple cyan
-NORMAL = (142, 150, 184)   # #8E96B8
-ACTIVE = (100, 210, 255)   # #64D2FF
+# 浅色底栏配色：未选中为灰，选中为 Apple blue
+NORMAL = (142, 142, 147)   # #8E8E93
+ACTIVE = (10, 132, 255)    # #0A84FF
 
 
 def inside_house(x, y):

@@ -4,19 +4,18 @@
   align-items: center;
   justify-content: center;
   transition: background 0.6s ease;
-  /* 未填充的底槽描边 */
-  box-shadow: inset 0 0 0 1rpx rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1rpx rgba(255, 255, 255, 0.55);
 }
 
 .ring-hole {
-  /* 半透明内芯：让渐变天空透出来，形成玻璃环 */
-  background: rgba(10, 16, 38, 0.30);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  backdrop-filter: blur(24px) saturate(160%);
+  /* 白色磨砂内芯：底下的彩斑透出淡淡的颜色 */
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: inset 0 1rpx 0 rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1rpx 0 rgba(255, 255, 255, 0.9);
 }

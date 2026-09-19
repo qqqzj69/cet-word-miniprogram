@@ -79,15 +79,15 @@
 }
 
 .row-arrow {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--ink-3);
   font-size: 44rpx;
   line-height: 1;
 }
 
 .chip-done {
-  background: rgba(48, 209, 88, 0.22);
-  color: #7BF0A0;
-  border-color: rgba(48, 209, 88, 0.35);
+  background: rgba(52, 199, 89, 0.16);
+  color: #248A3D;
+  border-color: rgba(52, 199, 89, 0.30);
 }
 
 /* ---------- 词库进度 ---------- */

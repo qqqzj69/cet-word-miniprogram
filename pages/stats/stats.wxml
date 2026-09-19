@@ -61,11 +61,11 @@
         <view class="t3 s-acc-label">已学词数</view>
       </view>
       <view class="s-acc-cell">
-        <view class="s-acc-num" style="color:#7BF0A0">{{st.acc.mastered}}</view>
+        <view class="s-acc-num" style="color:#248A3D">{{st.acc.mastered}}</view>
         <view class="t3 s-acc-label">已掌握</view>
       </view>
       <view class="s-acc-cell">
-        <view class="s-acc-num" style="color:#FF7A70">{{st.acc.wrong}}</view>
+        <view class="s-acc-num" style="color:#FF3B30">{{st.acc.wrong}}</view>
         <view class="t3 s-acc-label">错词</view>
       </view>
       <view class="s-acc-cell">

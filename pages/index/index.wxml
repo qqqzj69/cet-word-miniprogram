@@ -33,7 +33,7 @@
   <!-- 错词本入口 -->
   <view class="card row-card fade-up" bindtap="goWrong" hover-class="row-hover">
     <view class="row-left">
-      <view class="row-icon" style="background:rgba(255,69,58,0.26);color:#FF7A70">错</view>
+      <view class="row-icon" style="background:rgba(255,59,48,0.14);color:#FF3B30">错</view>
       <view class="row-text">
         <view class="h3">错词本</view>
         <view class="t3 row-sub num">{{ov.acc.wrong}} 个词待巩固</view>
@@ -45,7 +45,7 @@
   <!-- 打卡 -->
   <view class="card row-card fade-up" bindtap="onCheckin" hover-class="row-hover">
     <view class="row-left">
-      <view class="row-icon" style="background:rgba(255,214,10,0.24);color:#FFD60A">连</view>
+      <view class="row-icon" style="background:rgba(255,149,0,0.18);color:#FF9500">连</view>
       <view class="row-text">
         <view class="h3">每日打卡</view>
         <view class="t3 row-sub num">已连续 {{ov.streak}} 天，累计 {{ov.acc.learned ? ov.acc.learned : 0}} 词在学</view>

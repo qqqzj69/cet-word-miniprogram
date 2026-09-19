@@ -46,15 +46,15 @@
       <view class="h2">本轮学习完成</view>
       <view class="study-done-grid num">
         <view class="study-done-cell">
-          <view class="study-done-num" style="color:#7BF0A0">{{counts.right}}</view>
+          <view class="study-done-num" style="color:#248A3D">{{counts.right}}</view>
           <view class="t3 study-done-label">认识</view>
         </view>
         <view class="study-done-cell">
-          <view class="study-done-num" style="color:#FFD60A">{{counts.vague}}</view>
+          <view class="study-done-num" style="color:#FF9500">{{counts.vague}}</view>
           <view class="t3 study-done-label">模糊</view>
         </view>
         <view class="study-done-cell">
-          <view class="study-done-num" style="color:#FF7A70">{{counts.wrong}}</view>
+          <view class="study-done-num" style="color:#FF3B30">{{counts.wrong}}</view>
           <view class="t3 study-done-label">不认识</view>
         </view>
       </view>

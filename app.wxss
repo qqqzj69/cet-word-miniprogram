@@ -1,40 +1,43 @@
 /**
  * 全局设计令牌 + 基础样式
- * 视觉方向：Apple Weather 风格毛玻璃
- * 整屏渐变天空底 + 半透明玻璃卡片 + 白色字阶 + 大号细体数字
+ * 视觉方向：浅色半透明毛玻璃（Light Glassmorphism）
+ * 柔和渐变天空底 + 白色磨砂卡片 + 深色字阶 + 大号细体数字
  *
  * 说明：本次为纯视觉重做，未改动任何业务逻辑。
  */
 
 page {
-  /* ---- 天空底色 ---- */
-  --sky-1: #0A1026;          /* 天顶：深夜蓝 */
-  --sky-2: #1B2A5B;          /* 中段：靛蓝 */
-  --sky-3: #33215C;          /* 地平线：紫 */
-  --glass: rgba(255, 255, 255, 0.13);
-  --glass-2: rgba(255, 255, 255, 0.20);
-  --glass-line: rgba(255, 255, 255, 0.20);
-  --glass-hi: rgba(255, 255, 255, 0.34);   /* 顶部高光 */
-  --track: rgba(255, 255, 255, 0.16);      /* 进度条底槽 */
+  /* ---- 天空底色（浅色系） ---- */
+  --sky-1: #EAF3FF;          /* 天顶：晨雾蓝 */
+  --sky-2: #E3ECFF;          /* 中段：浅蓝 */
+  --sky-3: #F2E9FF;          /* 地平线：淡紫 */
 
-  /* ---- 文字（白阶） ---- */
-  --ink: #FFFFFF;
-  --ink-2: rgba(255, 255, 255, 0.76);
-  --ink-3: rgba(255, 255, 255, 0.50);
+  /* ---- 玻璃 ---- */
+  --glass: rgba(255, 255, 255, 0.55);        /* 卡片 */
+  --glass-2: rgba(255, 255, 255, 0.75);      /* 按钮 */
+  --glass-line: rgba(255, 255, 255, 0.85);   /* 高光描边 */
+  --glass-hi: rgba(255, 255, 255, 0.95);     /* 顶部内高光 */
+  --track: rgba(255, 255, 255, 0.70);        /* 进度底槽 */
+  --hair: rgba(28, 28, 30, 0.10);            /* 分隔线 */
 
-  /* ---- Apple 系统色 ---- */
-  --brand: #64D2FF;          /* cyan */
-  --brand-2: #7D7AFF;        /* indigo */
-  --amber: #FFD60A;
-  --coral: #FF453A;
-  --green: #30D158;
+  /* ---- 文字（深阶） ---- */
+  --ink: #1C1C1E;
+  --ink-2: rgba(28, 28, 30, 0.68);
+  --ink-3: rgba(28, 28, 30, 0.45);
+
+  /* ---- Apple 系统色（浅底适配） ---- */
+  --brand: #0A84FF;          /* blue */
+  --brand-2: #5E5CE6;        /* indigo */
+  --amber: #FF9500;
+  --coral: #FF3B30;
+  --green: #34C759;
 
   /* ---- 圆角 / 阴影 ---- */
   --r-lg: 36rpx;
   --r-md: 28rpx;
   --r-sm: 20rpx;
-  --shadow-card: 0 8rpx 32rpx rgba(0, 0, 0, 0.28);
-  --shadow-float: 0 10rpx 32rpx rgba(100, 210, 255, 0.30);
+  --shadow-card: 0 8rpx 32rpx rgba(31, 38, 135, 0.10);
+  --shadow-float: 0 10rpx 28rpx rgba(10, 132, 255, 0.26);
 
   background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 48%, var(--sky-3) 100%);
   color: var(--ink);
@@ -58,7 +61,7 @@ page {
   pointer-events: none;
 }
 
-/* 光晕：模拟天气 App 的色块弥散 */
+/* 柔和光晕：浅色系的粉蓝紫彩斑 */
 .blob {
   position: absolute;
   border-radius: 50%;
@@ -67,29 +70,29 @@ page {
 }
 
 .blob-1 {
-  width: 520rpx;
-  height: 520rpx;
-  left: -140rpx;
-  top: -60rpx;
-  background: radial-gradient(circle, #2E7BF6 0%, rgba(46, 123, 246, 0) 70%);
+  width: 560rpx;
+  height: 560rpx;
+  left: -160rpx;
+  top: -80rpx;
+  background: radial-gradient(circle, #8FD3FF 0%, rgba(143, 211, 255, 0) 70%);
   animation: drift1 18s ease-in-out infinite;
 }
 
 .blob-2 {
-  width: 600rpx;
-  height: 600rpx;
-  right: -180rpx;
-  top: 320rpx;
-  background: radial-gradient(circle, #8A5BFF 0%, rgba(138, 91, 255, 0) 70%);
+  width: 620rpx;
+  height: 620rpx;
+  right: -200rpx;
+  top: 300rpx;
+  background: radial-gradient(circle, #CBB8FF 0%, rgba(203, 184, 255, 0) 70%);
   animation: drift2 22s ease-in-out infinite;
 }
 
 .blob-3 {
-  width: 460rpx;
-  height: 460rpx;
-  left: 120rpx;
-  bottom: -140rpx;
-  background: radial-gradient(circle, #12B5C9 0%, rgba(18, 181, 201, 0) 70%);
+  width: 480rpx;
+  height: 480rpx;
+  left: 100rpx;
+  bottom: -160rpx;
+  background: radial-gradient(circle, #FFD3B6 0%, rgba(255, 211, 182, 0) 70%);
   animation: drift1 26s ease-in-out infinite reverse;
 }
 
@@ -112,12 +115,12 @@ page {
   box-sizing: border-box;
 }
 
-/* 玻璃卡片 */
+/* 白色磨砂玻璃卡片 */
 .card {
   position: relative;
   background: var(--glass);
-  -webkit-backdrop-filter: blur(28px) saturate(165%);
-  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
   border-radius: var(--r-lg);
   border: 1rpx solid var(--glass-line);
   box-shadow: var(--shadow-card), inset 0 1rpx 0 var(--glass-hi);
@@ -125,7 +128,7 @@ page {
   overflow: hidden;
 }
 
-/* 大号细体数字，Apple Weather 的数据感 */
+/* 大号细体数字 */
 .h1 { font-size: 60rpx; font-weight: 300; letter-spacing: -1rpx; }
 .h2 { font-size: 38rpx; font-weight: 500; }
 .h3 { font-size: 30rpx; font-weight: 500; }
@@ -143,7 +146,7 @@ page {
   border-radius: var(--r-sm);
   font-size: 32rpx;
   font-weight: 500;
-  color: #fff;
+  color: var(--ink);
   background: var(--glass-2);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
@@ -157,14 +160,15 @@ page {
 .btn:active { transform: scale(0.96); opacity: 0.88; }
 
 .btn-primary {
-  background: linear-gradient(135deg, rgba(100, 210, 255, 0.85) 0%, rgba(125, 122, 255, 0.85) 100%);
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: var(--shadow-float), inset 0 1rpx 0 var(--glass-hi);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  box-shadow: var(--shadow-float), inset 0 1rpx 0 rgba(255, 255, 255, 0.35);
 }
 
 .btn-ghost {
-  background: rgba(255, 255, 255, 0.10);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink);
 }
 
 .btn-disabled {
@@ -182,11 +186,11 @@ page {
   border-radius: 999rpx;
   font-size: 22rpx;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.72);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1rpx solid var(--glass-line);
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--ink-2);
 }
 
 /* ================= 进度条 ================= */
@@ -225,8 +229,8 @@ page {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* 玻璃分隔线 */
+/* 分隔线 */
 .hairline {
   height: 1rpx;
-  background: var(--glass-line);
+  background: var(--hair);
 }
