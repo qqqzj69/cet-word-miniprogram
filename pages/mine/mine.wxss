@@ -150,6 +150,28 @@
   line-height: 1;
 }
 
+/* 客服按钮：去掉 button 默认样式，与普通行保持一致 */
+.m-row-btn {
+  position: relative;
+}
+
+.m-contact {
+  flex: 1;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 30rpx;
+  font-weight: 300;
+  color: var(--ink);
+  background: transparent;
+  border-radius: 0;
+}
+
+.m-contact::after {
+  border: none;
+}
+
 .m-foot {
   text-align: center;
   margin-top: 40rpx;

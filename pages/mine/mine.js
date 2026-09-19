@@ -58,6 +58,10 @@ Page({
     wx.showToast({ title: '每日目标已设为 ' + n + ' 词', icon: 'none' });
   },
 
+  onPrivacy() {
+    wx.navigateTo({ url: '/pages/privacy/privacy' });
+  },
+
   onClear() {
     const self = this;
     wx.showModal({

@@ -5,6 +5,7 @@
     "pages/history/history",
     "pages/search/search",
     "pages/wrong/wrong",
+    "pages/privacy/privacy",
     "pages/stats/stats",
     "pages/mine/mine"
   ],

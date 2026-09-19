@@ -61,6 +61,14 @@
   <!-- 数据 -->
   <view class="card m-block fade-up">
     <view class="h3 m-block-title">数据</view>
+    <view class="m-row" hover-class="m-hover" bindtap="onPrivacy">
+      <text class="m-row-text">隐私政策</text>
+      <text class="m-row-arrow">›</text>
+    </view>
+    <view class="m-row m-row-btn">
+      <button class="m-contact" open-type="contact" hover-class="none">联系客服</button>
+      <text class="m-row-arrow">›</text>
+    </view>
     <view class="m-row" hover-class="m-hover" bindtap="onClear">
       <text class="m-row-text" style="color:#FF3B30">清空学习数据</text>
       <text class="m-row-arrow">›</text>

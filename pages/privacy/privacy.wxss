@@ -1,0 +1,33 @@
+.p-card {
+  margin-top: 12rpx;
+  padding: 44rpx 36rpx;
+}
+
+.p-title {
+  text-align: center;
+}
+
+.p-date {
+  text-align: center;
+  margin-top: 10rpx;
+  font-size: 23rpx;
+  font-weight: 300;
+}
+
+.p-section {
+  margin-top: 40rpx;
+}
+
+.p-text {
+  margin-top: 12rpx;
+  font-size: 27rpx;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.p-foot {
+  text-align: center;
+  margin-top: 32rpx;
+  font-size: 22rpx;
+  font-weight: 300;
+}

@@ -1,0 +1,78 @@
+<view class="bg">
+  <view class="blob blob-1"></view>
+  <view class="blob blob-2"></view>
+  <view class="blob blob-3"></view>
+</view>
+
+<view class="page-pad">
+  <view class="card p-card fade-up">
+    <view class="h2 p-title">隐私政策</view>
+    <view class="t3 p-date">最近更新：{{date}}</view>
+
+    <view class="p-section">
+      <view class="h3">一、我们不收集任何个人信息</view>
+      <view class="t2 p-text">
+        本小程序无需注册、无需登录，也不会要求你提供手机号、昵称、头像等任何个人信息。
+        我们不识别你的身份，也无法将使用行为对应到具体个人。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">二、我们不申请任何系统权限</view>
+      <view class="t2 p-text">
+        本小程序不会申请位置、相机、相册、麦克风、通讯录等任何系统权限，
+        也不会读取你的设备信息或剪贴板。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">三、没有网络请求，也没有第三方服务</view>
+      <view class="t2 p-text">
+        词库全部内置在小程序中，运行时不联网、不向任何服务器发送数据。
+        我们未接入任何第三方统计、广告或数据共享服务。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">四、数据保存在哪里</view>
+      <view class="t2 p-text">
+        学习进度、错词本、打卡记录与每日学习历史，全部仅保存在你手机的本地存储中，
+        由微信小程序的存储机制管理，不会上传，也不会与任何设备同步。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">五、如何删除你的数据</view>
+      <view class="t2 p-text">
+        你可以在「我的 → 清空学习数据」中一键删除全部本地记录；
+        卸载小程序或清除微信小程序缓存也会一并删除。
+        删除后无法恢复，请谨慎操作。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">六、未成年人</view>
+      <view class="t2 p-text">
+        本小程序面向准备英语四六级考试的学习者。
+        由于不收集任何信息，未成年人与成年人的使用方式完全相同。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">七、政策更新</view>
+      <view class="t2 p-text">
+        如未来功能发生变化并涉及信息收集，我们会在本页先行更新说明。
+        继续使用即视为同意更新后的内容。
+      </view>
+    </view>
+
+    <view class="p-section">
+      <view class="h3">八、联系我们</view>
+      <view class="t2 p-text">
+        对本政策有疑问，可通过「我的 → 联系客服」与我们取得联系。
+      </view>
+    </view>
+  </view>
+
+  <view class="t3 p-foot">本政策自发布之日起生效</view>
+</view>
