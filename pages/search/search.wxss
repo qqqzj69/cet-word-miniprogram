@@ -1,0 +1,145 @@
+/* ---------- 搜索框 ---------- */
+.s-bar {
+  margin-top: 12rpx;
+  padding: 20rpx 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.s-bar-icon { font-size: 30rpx; }
+
+.s-bar-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--ink);
+}
+
+.s-bar-ph { color: var(--ink-3); }
+
+.s-bar-clear {
+  color: var(--ink-3);
+  font-size: 28rpx;
+  padding: 0 8rpx;
+}
+
+.s-meta {
+  margin: 20rpx 8rpx 0;
+  font-size: 24rpx;
+  font-weight: 300;
+}
+
+/* ---------- 结果 ---------- */
+.s-list { margin-top: 20rpx; }
+
+.s-item {
+  margin-bottom: 20rpx;
+  padding: 28rpx 32rpx;
+  overflow: hidden;
+}
+
+.s-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.s-item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.s-item-word {
+  display: flex;
+  align-items: baseline;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.s-item-en {
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
+.s-item-phon {
+  font-size: 24rpx;
+  font-weight: 300;
+  color: var(--ink-3);
+}
+
+.s-item-meaning {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+  font-weight: 300;
+  word-break: break-all;
+}
+
+.s-item-arrow {
+  color: var(--ink-3);
+  font-size: 40rpx;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.s-item-arrow-open { transform: rotate(90deg); }
+
+.s-item-detail {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+}
+
+.s-item-detail-open {
+  max-height: 600rpx;
+  opacity: 1;
+  margin-top: 20rpx;
+}
+
+.s-item-example {
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--hair);
+}
+
+.s-item-ex-en {
+  display: block;
+  font-size: 27rpx;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--ink-2);
+  word-break: break-all;
+}
+
+.s-item-ex-cn {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  font-weight: 300;
+  color: var(--ink-3);
+  word-break: break-all;
+}
+
+.s-item-empty {
+  font-size: 24rpx;
+  font-weight: 300;
+  padding-top: 16rpx;
+}
+
+/* ---------- 初始提示 ---------- */
+.s-empty {
+  margin-top: 40rpx;
+  padding: 72rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  text-align: center;
+}
+
+.s-empty-icon { font-size: 64rpx; }
+
+.s-empty-sub {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  font-weight: 300;
+}

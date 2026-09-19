@@ -42,6 +42,18 @@
     <view class="row-arrow">›</view>
   </view>
 
+  <!-- 查词入口 -->
+  <view class="card row-card fade-up" bindtap="goSearch" hover-class="row-hover">
+    <view class="row-left">
+      <view class="row-icon" style="background:rgba(94,92,230,0.14);color:var(--brand-2)">查</view>
+      <view class="row-text">
+        <view class="h3">查单词</view>
+        <view class="t3 row-sub">查词义、音标和例句</view>
+      </view>
+    </view>
+    <view class="row-arrow">›</view>
+  </view>
+
   <!-- 每日历史入口 -->
   <view class="card row-card fade-up" bindtap="goHistory" hover-class="row-hover">
     <view class="row-left">

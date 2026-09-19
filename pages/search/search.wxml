@@ -1,0 +1,60 @@
+<view class="bg">
+  <view class="blob blob-1"></view>
+  <view class="blob blob-2"></view>
+  <view class="blob blob-3"></view>
+</view>
+
+<view class="page-pad">
+  <!-- 搜索框 -->
+  <view class="s-bar card fade-up">
+    <text class="s-bar-icon">🔍</text>
+    <input
+      class="s-bar-input"
+      placeholder="输入英文或中文释义关键词"
+      placeholder-class="s-bar-ph"
+      value="{{kw}}"
+      confirm-type="search"
+      bindinput="onInput"
+    />
+    <text class="s-bar-clear" wx:if="{{kw}}" bindtap="onClear">✕</text>
+  </view>
+  <view class="t3 s-meta num" wx:if="{{!searched}}">{{levelName}} · 共 {{total}} 词</view>
+  <view class="t3 s-meta num" wx:elif="{{results.length > 0}}">找到 {{results.length}} 个结果</view>
+  <view class="t3 s-meta" wx:else>没有找到「{{kw}}」相关的词</view>
+
+  <!-- 结果列表 -->
+  <view class="s-list" wx:if="{{results.length > 0}}">
+    <view
+      class="card s-item fade-up"
+      wx:for="{{results}}"
+      wx:key="i"
+      data-w="{{item.w}}"
+      bindtap="onToggle"
+    >
+      <view class="s-item-row">
+        <view class="s-item-main">
+          <view class="s-item-word">
+            <text class="s-item-en">{{item.w}}</text>
+            <text class="s-item-phon" wx:if="{{item.p}}">/{{item.p}}/</text>
+          </view>
+          <view class="t3 s-item-meaning">{{item.m}}</view>
+        </view>
+        <view class="s-item-arrow {{expanded === item.w ? 's-item-arrow-open' : ''}}">›</view>
+      </view>
+      <view class="s-item-detail {{expanded === item.w ? 's-item-detail-open' : ''}}">
+        <view class="s-item-example" wx:if="{{item.e}}">
+          <text class="s-item-ex-en">{{item.e}}</text>
+          <text class="s-item-ex-cn" wx:if="{{item.ec}}">{{item.ec}}</text>
+        </view>
+        <view class="t3 s-item-empty" wx:else>这个词暂无例句</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 初始提示 -->
+  <view class="card s-empty fade-up" wx:if="{{!searched}}">
+    <view class="s-empty-icon">🔎</view>
+    <view class="h3">查词</view>
+    <view class="t3 s-empty-sub">输入英文（如 access）或中文（如 能力），最多显示 50 条</view>
+  </view>
+</view>

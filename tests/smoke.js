@@ -203,4 +203,33 @@ ok('90 天：按周聚合成 13 根', st90.bars.length === 13 && st90.range === 
 ok('区间统计：30 天总数 >= 7 天总数', st30.rangeTotal >= st7.rangeTotal && st90.rangeTotal >= st30.rangeTotal);
 ok('区间统计：最大值与活跃天数有效', st7.rangeMax >= 1 && st7.rangeActiveDays >= 1);
 
+console.log('\n[12] 音标例句 / 查词 / 撤销');
+const dict2 = require(path.join(ROOT, 'data/index.js'));
+const w4 = dict2.getWords('cet4');
+const withP = w4.filter((x) => x.p).length;
+const withE = w4.filter((x) => x.e).length;
+ok('四级音标覆盖率 > 95%', withP / w4.length > 0.95);
+ok('四级例句覆盖率 > 90%', withE / w4.length > 0.90);
+ok('搜索：英文前缀命中', dict2.searchWords('cet4', 'acc', 50).some((x) => x.w === 'access'));
+ok('搜索：中文释义命中', dict2.searchWords('cet4', '能力', 50).length > 0);
+ok('搜索：空关键词返回空', dict2.searchWords('cet4', '   ', 50).length === 0);
+ok('搜索：数量上限生效', dict2.searchWords('cet4', 'a', 10).length === 10);
+
+// 撤销：评价后恢复到评价前的状态
+progress = fresh();
+progress.init();
+const su = progress.ensureSession('daily');
+const wu = su.q[0];
+const before = progress.getWordState(wu);
+const beforeLearned = (JSON.parse(JSON.stringify(mem[KEY])).daily[TODAY] || { learned: 0 }).learned;
+progress.rate('daily', wu, 'right');
+ok('评价后会话前进', progress.getSession('daily').i === 1);
+progress.restoreWordState('daily', wu, before, 'right');
+ok('撤销后会话进度回退', progress.getSession('daily').i === 0);
+const afterState = progress.getWordState(wu);
+ok('撤销后词状态还原', JSON.stringify(afterState) === JSON.stringify(before));
+const afterRec = JSON.parse(JSON.stringify(mem[KEY])).daily[TODAY];
+ok('撤销后当日计数扣回', (afterRec ? afterRec.learned : 0) === beforeLearned);
+ok('撤销后当日明细移除', !afterRec || !afterRec.list || !afterRec.list.some((x) => x.w === wu));
+
 console.log('\n全部通过：' + passed + ' 项 ✓');

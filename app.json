@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/study/study",
     "pages/history/history",
+    "pages/search/search",
     "pages/wrong/wrong",
     "pages/stats/stats",
     "pages/mine/mine"

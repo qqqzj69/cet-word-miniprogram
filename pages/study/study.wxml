@@ -5,9 +5,16 @@
 </view>
 
 <view class="study">
-  <!-- 顶部：退出 + 进度 -->
+  <!-- 顶部：退出 / 撤销 + 进度 -->
   <view class="study-top">
-    <view class="study-close" hover-class="study-close-hover" bindtap="onClose">✕</view>
+    <view class="study-top-left">
+      <view class="study-close" hover-class="study-close-hover" bindtap="onClose">✕</view>
+      <view
+        class="study-close study-undo {{undoCount > 0 ? '' : 'study-undo-off'}}"
+        hover-class="study-close-hover"
+        bindtap="onUndo"
+      >↩</view>
+    </view>
     <view class="study-prog num">
       <text class="study-prog-cur">{{done}}</text>
       <text class="t3"> / {{total}}</text>

@@ -15,6 +15,7 @@ Page({
     showCard: true,
     finished: false,
     counts: { right: 0, vague: 0, wrong: 0 },
+    undoCount: 0,
     checkinMsg: '',
     checkedToday: false
   },
@@ -22,6 +23,7 @@ Page({
   onLoad(options) {
     this.mode = (options && options.mode === 'wrong') ? 'wrong' : 'daily';
     this.counts = { right: 0, vague: 0, wrong: 0 };
+    this.undoStack = [];
     this.autoChecked = false;
     this.session = progress.ensureSession(this.mode);
     const levelName = dict.getLevelName(progress.getLevel());
@@ -113,6 +115,7 @@ Page({
   onUnknow(e) {
     if (this.data.finished || !this.data.item || this.data.rated) return;
     const rating = e.currentTarget.dataset.r === 'vague' ? 'vague' : 'wrong';
+    this.pushUndo(this.data.item.w, rating);
     progress.rate(this.mode, this.data.item.w, rating);
     this.counts[rating]++;
 
@@ -128,6 +131,28 @@ Page({
     });
   },
 
+  /** 撤销上一次评价，回到上一个单词 */
+  onUndo() {
+    const last = this.undoStack.pop();
+    if (!last) return;
+    progress.restoreWordState(this.mode, last.word, last.prev, last.rating);
+    this.counts[last.rating] = Math.max(0, this.counts[last.rating] - 1);
+    this.session = progress.getSession(this.mode) || this.session;
+    this.setData({ counts: this.counts, finished: false });
+    this.syncCurrent();
+  },
+
+  /** 评价前记录快照，供「上一个」撤销 */
+  pushUndo(word, rating) {
+    this.undoStack.push({
+      word: word,
+      rating: rating,
+      prev: progress.getWordState(word)
+    });
+    if (this.undoStack.length > 50) this.undoStack.shift();
+    this.setData({ undoCount: this.undoStack.length });
+  },
+
   /** 看完释义后进入下一个单词：直接原地换词，不卸载卡片，避免按钮区闪现 */
   onNext() {
     this.setData({ revealed: false, rated: false, rating: '' });
@@ -137,6 +162,7 @@ Page({
 
   commit(rating) {
     if (!this.data.item) return;
+    this.pushUndo(this.data.item.w, rating);
     progress.rate(this.mode, this.data.item.w, rating);
     this.counts[rating]++;
     this.onNext();

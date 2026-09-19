@@ -1,7 +1,7 @@
 /**
  * 词库读取层
- * data/cet4.js 与 data/cet6.js 由 tools/build_dict.py 生成，
- * 内容为 "单词\t释义" 以 \n 连接的字符串，运行时按需解析并缓存。
+ * data/cet4.js 与 data/cet6.js 为内置数据，
+ * 每行格式：单词 \t 音标 \t 释义 \t 例句 \t 例句中文（音标与例句可缺省）
  */
 const raw = {
   cet4: require('./cet4.js'),
@@ -21,12 +21,15 @@ function getWords(level) {
   const rows = src.split('\n');
   const list = [];
   for (let i = 0; i < rows.length; i++) {
-    const tab = rows[i].indexOf('\t');
-    if (tab <= 0) continue;
+    const f = rows[i].split('\t');
+    if (!f[0]) continue;
     list.push({
       i: i,
-      w: rows[i].slice(0, tab),
-      m: rows[i].slice(tab + 1)
+      w: f[0],
+      p: f[1] || '',
+      m: f[2] || '',
+      e: f[3] || '',
+      ec: f[4] || ''
     });
   }
   cache[level] = list;
@@ -39,6 +42,38 @@ function getWord(level, word) {
     if (list[i].w === word) return list[i];
   }
   return null;
+}
+
+/**
+ * 查词：英文前缀优先，其次英文包含，最后中文释义包含
+ * @param {string} level
+ * @param {string} kw 关键词
+ * @param {number} [limit] 最多返回条数，默认 50
+ */
+function searchWords(level, kw, limit) {
+  const k = (kw || '').trim().toLowerCase();
+  if (!k) return [];
+  const cap = limit > 0 ? limit : 50;
+  const words = getWords(level);
+  const out = [];
+  const seen = {};
+  let pass;
+  for (pass = 0; pass < 3 && out.length < cap; pass++) {
+    for (let i = 0; i < words.length && out.length < cap; i++) {
+      const it = words[i];
+      if (seen[it.i]) continue;
+      const lw = it.w.toLowerCase();
+      const matched =
+        (pass === 0 && lw.indexOf(k) === 0) ||
+        (pass === 1 && lw.indexOf(k) > 0) ||
+        (pass === 2 && it.m.indexOf(kw.trim()) >= 0);
+      if (matched) {
+        seen[it.i] = true;
+        out.push(it);
+      }
+    }
+  }
+  return out;
 }
 
 function getCount(level) {
@@ -54,6 +89,7 @@ module.exports = {
   LEVELS: LEVELS,
   getWords: getWords,
   getWord: getWord,
+  searchWords: searchWords,
   getCount: getCount,
   getLevelName: getLevelName
 };

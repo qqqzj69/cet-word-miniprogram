@@ -34,6 +34,21 @@
   transform: scale(0.92);
 }
 
+.study-top-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.study-undo {
+  font-size: 34rpx;
+}
+
+.study-undo-off {
+  opacity: 0.32;
+  pointer-events: none;
+}
+
 .study-prog {
   font-size: 30rpx;
   font-weight: 300;

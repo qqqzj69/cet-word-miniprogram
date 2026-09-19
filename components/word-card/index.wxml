@@ -1,14 +1,19 @@
 <view class="wc {{revealed ? 'is-revealed' : ''}}" bindtap="onTap" hover-class="wc-hover" wx:if="{{item}}">
   <view class="wc-body">
-    <!-- 单词：始终展示 -->
-    <view class="wc-word-wrap">
+    <!-- 单词 + 音标 -->
+    <view class="wc-top">
       <text class="wc-word">{{item.w}}</text>
+      <text class="wc-phon" wx:if="{{item.p}}">/{{item.p}}/</text>
     </view>
 
-    <!-- 中文释义：点击后直接出现，无翻卡动画 -->
+    <!-- 中文释义 + 例句：点击后直接出现，无翻卡动画 -->
     <view class="wc-meaning-wrap" wx:if="{{revealed}}">
       <scroll-view scroll-y class="wc-scroll" enhanced show-scrollbar="{{false}}">
         <text class="wc-meaning">{{item.m}}</text>
+        <view class="wc-example" wx:if="{{item.e}}">
+          <text class="wc-example-en">{{item.e}}</text>
+          <text class="wc-example-cn" wx:if="{{item.ec}}">{{item.ec}}</text>
+        </view>
       </scroll-view>
     </view>
 

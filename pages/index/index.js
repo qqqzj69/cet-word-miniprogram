@@ -49,6 +49,10 @@ Page({
     wx.navigateTo({ url: '/pages/history/history' });
   },
 
+  goSearch() {
+    wx.navigateTo({ url: '/pages/search/search' });
+  },
+
   onCheckin() {
     const r = progress.checkin();
     if (r.ok) {

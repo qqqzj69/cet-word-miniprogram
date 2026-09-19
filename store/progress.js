@@ -273,6 +273,46 @@ function getHistoryDays() {
   return Object.keys(getDb().daily).length;
 }
 
+/** 读取某词当前的记忆状态，用于撤销前的快照 */
+function getWordState(word) {
+  const st = getDb().words[word];
+  return st ? { s: st.s, n: st.n, w: st.w, l: st.l } : null;
+}
+
+/**
+ * 撤销一次评价：还原该词的记忆状态、扣回当日计数、
+ * 移除当日明细中最后一条该词的记录，并回退会话进度
+ */
+function restoreWordState(mode, word, prev, rating) {
+  const d = getDb();
+  if (prev) {
+    d.words[word] = { s: prev.s, n: prev.n, w: prev.w, l: prev.l };
+  } else {
+    delete d.words[word];
+  }
+
+  const t = today();
+  const rec = d.daily[t];
+  if (rec) {
+    rec.learned = Math.max(0, (rec.learned || 0) - 1);
+    if (rating === 'right') rec.right = Math.max(0, (rec.right || 0) - 1);
+    else if (rating === 'vague') rec.vague = Math.max(0, (rec.vague || 0) - 1);
+    else rec.wrong = Math.max(0, (rec.wrong || 0) - 1);
+    if (Array.isArray(rec.list) && rec.list.length) {
+      for (let i = rec.list.length - 1; i >= 0; i--) {
+        if (rec.list[i].w === word && rec.list[i].r === rating) {
+          rec.list.splice(i, 1);
+          break;
+        }
+      }
+    }
+  }
+
+  const s = d.sessions[mode];
+  if (s) s.i = Math.max(0, s.i - 1);
+  persist();
+}
+
 /** 当前词库的学习进度 */
 function getLevelProgress() {
   const d = getDb();
@@ -430,6 +470,8 @@ module.exports = {
   checkin: checkin,
   getLevel: getLevel,
   getSettings: getSettings,
+  getWordState: getWordState,
+  restoreWordState: restoreWordState,
   masterWord: masterWord,
   getOverview: getOverview,
   getStats: getStats,
