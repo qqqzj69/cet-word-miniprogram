@@ -185,7 +185,29 @@ Page({
     this.syncCurrent();
   },
 
+  /**
+   * 顶部关闭：学习途中先确认，避免误触直接退出
+   * 本轮已完成时直接返回，不再打扰
+   */
   onClose() {
+    const self = this;
+    if (this.data.finished) {
+      this.doBack();
+      return;
+    }
+    wx.showModal({
+      title: '要退出学习吗？',
+      content: '当前进度已经保存好了，随时可以回来接着背。',
+      cancelText: '继续学习',
+      confirmText: '确认退出',
+      confirmColor: '#FF3B30',
+      success(res) {
+        if (res.confirm) self.doBack();
+      }
+    });
+  },
+
+  doBack() {
     wx.navigateBack({
       fail: function () { wx.switchTab({ url: '/pages/index/index' }); }
     });

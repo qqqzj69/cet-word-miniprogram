@@ -313,6 +313,48 @@ function restoreWordState(mode, word, prev, rating) {
   persist();
 }
 
+/* ---------------- 艾宾浩斯遗忘曲线 ---------------- */
+
+/** 记忆阶段对应的估算留存率（stage 0-6） */
+const RETENTION = [22, 42, 58, 70, 80, 88, 94];
+
+/**
+ * 按学习日期计算记忆留存，并给出同期的理论遗忘曲线做对照
+ * @param {number} days 向前取的天数，默认 14
+ */
+function getForgetCurve(days) {
+  const d = getDb();
+  const n = days > 0 ? days : 14;
+  const points = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const ds = dateUtil.offsetStr(-i);
+    const rec = d.daily[ds];
+    const list = (rec && Array.isArray(rec.list)) ? rec.list : [];
+    let sum = 0;
+    let cnt = 0;
+    for (let k = 0; k < list.length; k++) {
+      const st = d.words[list[k].w];
+      if (!st) continue;
+      sum += RETENTION[Math.min(RETENTION.length - 1, Math.max(0, st.s || 0))];
+      cnt++;
+    }
+    points.push({
+      date: ds,
+      md: dateUtil.md(ds),
+      ago: i,
+      learned: rec ? (rec.learned || 0) : 0,
+      // 当天没有学习记录时没有实测值，曲线在此断开
+      retention: cnt ? Math.round(sum / cnt) : null,
+      // 理论遗忘曲线：距今天数越久，未复习情况下留存越低
+      theory: Math.round(100 * Math.exp(-i / 9)),
+      words: list.map(function (x) {
+        return { w: x.w, m: x.m, r: x.r, rText: ratingText(x.r) };
+      })
+    });
+  }
+  return points;
+}
+
 /** 当前词库的学习进度 */
 function getLevelProgress() {
   const d = getDb();
@@ -361,39 +403,21 @@ function getStats(range) {
   let rangeMax = 0;
   let activeDays = 0;
 
-  if (r === 90) {
-    // 90 天按周聚合，最近 13 周
-    const WEEKS = 13;
-    for (let w = WEEKS - 1; w >= 0; w--) {
-      let sum = 0;
-      for (let k = 0; k < 7; k++) {
-        const rec = d.daily[dateUtil.offsetStr(-(w * 7 + k))];
-        if (rec) sum += (rec.learned || 0);
-      }
-      if (sum > 0) activeDays++;
-      if (sum > rangeMax) rangeMax = sum;
-      rangeTotal += sum;
-      bars.push({
-        label: w === 0 ? '本周' : (w % 2 === 0 ? w + '周前' : ''),
-        value: sum,
-        showLabel: true
-      });
-    }
-  } else {
-    for (let i = r - 1; i >= 0; i--) {
-      const ds = dateUtil.offsetStr(-i);
-      const rec = d.daily[ds];
-      const v = rec ? (rec.learned || 0) : 0;
-      if (v > 0) activeDays++;
-      if (v > rangeMax) rangeMax = v;
-      rangeTotal += v;
-      bars.push({
-        label: i === 0 ? '今天' : (r === 7 ? dateUtil.weekday(ds) : dateUtil.shortDate(ds)),
-        value: v,
-        // 30 天时柱子密集，标签隔 5 根显示一次
-        showLabel: r === 7 ? true : ((r - 1 - i) % 5 === 0 || i === 0)
-      });
-    }
+  // 各区间都按天渲染，仅通过 showLabel 抽稀刻度，避免坐标轴重叠
+  const labelStep = (r === 90) ? 10 : (r === 30 ? 5 : 1);
+  for (let i = r - 1; i >= 0; i--) {
+    const idx = r - 1 - i;                 // 0 = 最左（最早）
+    const ds = dateUtil.offsetStr(-i);
+    const rec = d.daily[ds];
+    const v = rec ? (rec.learned || 0) : 0;
+    if (v > 0) activeDays++;
+    if (v > rangeMax) rangeMax = v;
+    rangeTotal += v;
+    bars.push({
+      label: i === 0 ? '今天' : (r === 7 ? dateUtil.weekday(ds) : dateUtil.md(ds)),
+      value: v,
+      showLabel: (idx % labelStep === 0) || i === 0
+    });
   }
 
   const week = [];
@@ -479,5 +503,6 @@ module.exports = {
   getWrongList: getWrongList,
   getHistory: getHistory,
   getHistoryDays: getHistoryDays,
+  getForgetCurve: getForgetCurve,
   resetAll: resetAll
 };

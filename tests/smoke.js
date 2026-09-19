@@ -199,7 +199,7 @@ const st30 = progress.getStats(30);
 const st90 = progress.getStats(90);
 ok('7 天：7 根柱子', st7.bars.length === 7 && st7.range === 7);
 ok('30 天：30 根柱子', st30.bars.length === 30 && st30.range === 30);
-ok('90 天：按周聚合成 13 根', st90.bars.length === 13 && st90.range === 90);
+ok('90 天：逐日 90 根', st90.bars.length === 90 && st90.range === 90);
 ok('区间统计：30 天总数 >= 7 天总数', st30.rangeTotal >= st7.rangeTotal && st90.rangeTotal >= st30.rangeTotal);
 ok('区间统计：最大值与活跃天数有效', st7.rangeMax >= 1 && st7.rangeActiveDays >= 1);
 
@@ -231,5 +231,31 @@ ok('撤销后词状态还原', JSON.stringify(afterState) === JSON.stringify(bef
 const afterRec = JSON.parse(JSON.stringify(mem[KEY])).daily[TODAY];
 ok('撤销后当日计数扣回', (afterRec ? afterRec.learned : 0) === beforeLearned);
 ok('撤销后当日明细移除', !afterRec || !afterRec.list || !afterRec.list.some((x) => x.w === wu));
+
+console.log('\n[13] 坐标轴抽稀 / 遗忘曲线');
+const dateUtil = require(path.join(ROOT, 'utils/date.js'));
+ok('M/D 简短日期格式', dateUtil.md('2026-09-19') === '9/19' && dateUtil.md('2026-12-01') === '12/1');
+
+const ax90 = progress.getStats(90);
+ok('90 天仍为逐日数据（90 根）', ax90.bars.length === 90);
+const n90 = ax90.bars.filter((b) => b.showLabel).length;
+ok('90 天刻度抽稀到 10 个左右', n90 >= 9 && n90 <= 11);
+ok('90 天刻度用 M/D 格式', ax90.bars.filter((b) => b.showLabel && b.label !== '\u4eca\u5929').every((b) => /^\d+\/\d+$/.test(b.label)));
+const pos90 = [];
+ax90.bars.forEach((b, i) => { if (b.showLabel) pos90.push(i); });
+let gap90 = 999;
+for (let i = 1; i < pos90.length; i++) gap90 = Math.min(gap90, pos90[i] - pos90[i - 1]);
+ok('刻度间隔 >= 5 根（不会重叠）', gap90 >= 5);
+
+const ax30 = progress.getStats(30);
+ok('30 天刻度每 5 天一个', ax30.bars.filter((b) => b.showLabel).length >= 6);
+
+const fcurve = progress.getForgetCurve(14);
+ok('曲线取 14 个日期节点', fcurve.length === 14);
+ok('理论遗忘曲线随时间衰减', fcurve[0].theory < fcurve[13].theory);
+ok('没学习的日子留存为空', fcurve.filter((p) => p.retention === null).length > 0);
+const withWords = fcurve.filter((p) => p.words.length > 0);
+ok('有学习的日子能取到单词列表', withWords.length > 0 && withWords[0].words[0].m.length > 0);
+ok('学过的词有实测留存', withWords.every((p) => p.retention > 0));
 
 console.log('\n全部通过：' + passed + ' 项 ✓');

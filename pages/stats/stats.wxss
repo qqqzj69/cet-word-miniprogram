@@ -113,14 +113,19 @@
 }
 
 .s-chart-30 { gap: 6rpx; }
-.s-chart-90 { gap: 10rpx; }
+.s-chart-90 { gap: 2rpx; }
 
 /* 柱子随区间变细，保证 30/90 根也放得下 */
 .s-chart-30 .s-bar { width: 14rpx; border-radius: 6rpx; }
-.s-chart-90 .s-bar { width: 30rpx; }
+.s-chart-90 .s-bar { width: 4rpx; border-radius: 2rpx; }
 
 .s-chart-30 .s-col-val { font-size: 18rpx; }
 .s-chart-30 .s-col-label { font-size: 18rpx; }
+.s-chart-90 .s-col-label { font-size: 18rpx; }
+
+/* 密集区间不再逐根显示数值，避免糊成一片 */
+.s-chart-30 .s-col-val,
+.s-chart-90 .s-col-val { display: none; }
 
 .s-chart {
   margin-top: 32rpx;
@@ -167,9 +172,13 @@
   background: linear-gradient(180deg, var(--brand) 0%, var(--brand-2) 100%);
 }
 
+/* 刻度：不换行、不截断 */
 .s-col-label {
   font-size: 22rpx;
   font-weight: 300;
+  white-space: nowrap;
+  overflow: visible;
+  flex-shrink: 0;
 }
 
 .s-col-label-hot {

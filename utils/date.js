@@ -35,6 +35,12 @@ function shortDate(s) {
   return p[1] + '.' + p[2];
 }
 
+/** 更短日期，如 9/19（用于密集坐标轴的刻度） */
+function md(s) {
+  const p = String(s).split('-');
+  return (+p[1]) + '/' + (+p[2]);
+}
+
 /** 连续打卡天数：从今天（或昨天）往回数 */
 function streak(dates) {
   if (!dates || !dates.length) return 0;
@@ -59,5 +65,6 @@ module.exports = {
   parseDate: parseDate,
   weekday: weekday,
   shortDate: shortDate,
+  md: md,
   streak: streak
 };

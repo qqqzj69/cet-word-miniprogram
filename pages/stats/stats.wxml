@@ -64,6 +64,53 @@
     </view>
   </view>
 
+  <!-- 艾宾浩斯遗忘曲线 -->
+  <view class="card s-curve fade-up">
+    <view class="s-curve-head">
+      <view class="h3">记忆留存曲线</view>
+      <view class="t3 s-curve-sub">最近 {{curve.length}} 天</view>
+    </view>
+
+    <view class="s-legend">
+      <view class="s-legend-item">
+        <view class="s-legend-line"></view>
+        <text class="t3">实际留存</text>
+      </view>
+      <view class="s-legend-item">
+        <view class="s-legend-line s-legend-dash"></view>
+        <text class="t3">不复习的理论遗忘</text>
+      </view>
+    </view>
+
+    <canvas
+      type="2d"
+      id="forgetCurve"
+      class="s-curve-canvas"
+      bindtap="onCurveTap"
+      wx:if="{{curveReady}}"
+    ></canvas>
+
+    <view class="s-curve-empty" wx:else>
+      <text class="t3">至少两天的学习记录才能画出曲线，先去背两天再来</text>
+    </view>
+
+    <!-- 点击节点后的单词列表 -->
+    <view class="s-curve-detail" wx:if="{{curveDate}}">
+      <view class="s-curve-detail-head">
+        <text class="s-curve-date num">{{curveDate}}</text>
+        <text class="t3">学 {{curveLearned}} 词 · 平均留存 {{curveRetention}}%</text>
+      </view>
+      <view class="f-word" wx:for="{{curveWords}}" wx:key="index">
+        <view class="f-word-main">
+          <view class="f-word-en">{{item.w}}</view>
+          <view class="t3 f-word-cn">{{item.m}}</view>
+        </view>
+        <view class="f-word-tag f-word-{{item.r}}">{{item.rText}}</view>
+      </view>
+      <view class="t3 f-word-empty" wx:if="{{curveWords.length === 0}}">这天没有留下单词明细</view>
+    </view>
+  </view>
+
   <!-- 累计：可点开查看错词与学习记录 -->
   <view class="card s-acc fade-up" hover-class="row-hover" bindtap="onOpenAcc">
     <view class="s-acc-head">
