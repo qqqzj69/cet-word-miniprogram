@@ -1,33 +1,42 @@
 /**
  * 全局设计令牌 + 基础样式
- * 视觉方向：「晨读纸感」Light Academic
- * 浅暖纸底 / 靛青-青绿主色 / 大圆角 / 双层浅阴影
+ * 视觉方向：Apple Weather 风格毛玻璃
+ * 整屏渐变天空底 + 半透明玻璃卡片 + 白色字阶 + 大号细体数字
+ *
+ * 说明：本次为纯视觉重做，未改动任何业务逻辑。
  */
 
 page {
-  /* ---- 颜色 ---- */
-  --bg: #F6F4F1;
-  --bg-soft: #EFEBE6;
-  --card: #FFFFFF;
-  --ink: #16181D;
-  --ink-2: #5B616E;
-  --ink-3: #9AA0AC;
-  --line: rgba(22, 24, 29, 0.07);
-  --brand: #2F5FE0;
-  --brand-2: #17B8A6;
-  --brand-soft: rgba(47, 95, 224, 0.08);
-  --amber: #F5A623;
-  --coral: #FF6B5B;
-  --green: #16A34A;
+  /* ---- 天空底色 ---- */
+  --sky-1: #0A1026;          /* 天顶：深夜蓝 */
+  --sky-2: #1B2A5B;          /* 中段：靛蓝 */
+  --sky-3: #33215C;          /* 地平线：紫 */
+  --glass: rgba(255, 255, 255, 0.13);
+  --glass-2: rgba(255, 255, 255, 0.20);
+  --glass-line: rgba(255, 255, 255, 0.20);
+  --glass-hi: rgba(255, 255, 255, 0.34);   /* 顶部高光 */
+  --track: rgba(255, 255, 255, 0.16);      /* 进度条底槽 */
+
+  /* ---- 文字（白阶） ---- */
+  --ink: #FFFFFF;
+  --ink-2: rgba(255, 255, 255, 0.76);
+  --ink-3: rgba(255, 255, 255, 0.50);
+
+  /* ---- Apple 系统色 ---- */
+  --brand: #64D2FF;          /* cyan */
+  --brand-2: #7D7AFF;        /* indigo */
+  --amber: #FFD60A;
+  --coral: #FF453A;
+  --green: #30D158;
 
   /* ---- 圆角 / 阴影 ---- */
-  --r-lg: 32rpx;
-  --r-md: 24rpx;
-  --r-sm: 16rpx;
-  --shadow-card: 0 2rpx 6rpx rgba(22, 24, 29, 0.04), 0 12rpx 32rpx rgba(22, 24, 29, 0.06);
-  --shadow-float: 0 8rpx 24rpx rgba(47, 95, 224, 0.28);
+  --r-lg: 36rpx;
+  --r-md: 28rpx;
+  --r-sm: 20rpx;
+  --shadow-card: 0 8rpx 32rpx rgba(0, 0, 0, 0.28);
+  --shadow-float: 0 10rpx 32rpx rgba(100, 210, 255, 0.30);
 
-  background: var(--bg);
+  background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 48%, var(--sky-3) 100%);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -36,44 +45,90 @@ page {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  page {
-    --bg: #101216;
-    --bg-soft: #1A1D24;
-    --card: #191C22;
-    --ink: #F2F4F8;
-    --ink-2: #A3AAB8;
-    --ink-3: #6B7280;
-    --line: rgba(255, 255, 255, 0.08);
-    --brand: #5B84F5;
-    --brand-2: #2BD4C0;
-    --brand-soft: rgba(91, 132, 245, 0.14);
-    --r-lg: 32rpx;
-    --shadow-card: 0 2rpx 6rpx rgba(0, 0, 0, 0.30), 0 12rpx 32rpx rgba(0, 0, 0, 0.34);
-    --shadow-float: 0 8rpx 24rpx rgba(0, 0, 0, 0.45);
-    background: var(--bg);
-    color: var(--ink);
-  }
+/* ================= 天空背景层 ================= */
+
+.bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 光晕：模拟天气 App 的色块弥散 */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80rpx);
+  opacity: 0.55;
+}
+
+.blob-1 {
+  width: 520rpx;
+  height: 520rpx;
+  left: -140rpx;
+  top: -60rpx;
+  background: radial-gradient(circle, #2E7BF6 0%, rgba(46, 123, 246, 0) 70%);
+  animation: drift1 18s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 600rpx;
+  height: 600rpx;
+  right: -180rpx;
+  top: 320rpx;
+  background: radial-gradient(circle, #8A5BFF 0%, rgba(138, 91, 255, 0) 70%);
+  animation: drift2 22s ease-in-out infinite;
+}
+
+.blob-3 {
+  width: 460rpx;
+  height: 460rpx;
+  left: 120rpx;
+  bottom: -140rpx;
+  background: radial-gradient(circle, #12B5C9 0%, rgba(18, 181, 201, 0) 70%);
+  animation: drift1 26s ease-in-out infinite reverse;
+}
+
+@keyframes drift1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(40rpx, 60rpx, 0) scale(1.08); }
+}
+
+@keyframes drift2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-50rpx, -40rpx, 0) scale(1.12); }
 }
 
 /* ================= 通用布局 ================= */
 
 .page-pad {
-  padding: 24rpx 32rpx 48rpx;
+  position: relative;
+  z-index: 1;
+  padding: 24rpx 28rpx 48rpx;
   box-sizing: border-box;
 }
 
+/* 玻璃卡片 */
 .card {
-  background: var(--card);
+  position: relative;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
+  backdrop-filter: blur(28px) saturate(165%);
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-card);
-  border: 1rpx solid var(--line);
+  border: 1rpx solid var(--glass-line);
+  box-shadow: var(--shadow-card), inset 0 1rpx 0 var(--glass-hi);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
-.h1 { font-size: 52rpx; font-weight: 700; letter-spacing: -0.5rpx; }
-.h2 { font-size: 36rpx; font-weight: 600; }
-.h3 { font-size: 30rpx; font-weight: 600; }
+/* 大号细体数字，Apple Weather 的数据感 */
+.h1 { font-size: 60rpx; font-weight: 300; letter-spacing: -1rpx; }
+.h2 { font-size: 38rpx; font-weight: 500; }
+.h3 { font-size: 30rpx; font-weight: 500; }
 .t2 { color: var(--ink-2); }
 .t3 { color: var(--ink-3); }
 .num { font-variant-numeric: tabular-nums; letter-spacing: -0.5rpx; }
@@ -87,27 +142,33 @@ page {
   height: 96rpx;
   border-radius: var(--r-sm);
   font-size: 32rpx;
-  font-weight: 600;
+  font-weight: 500;
+  color: #fff;
+  background: var(--glass-2);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1rpx solid var(--glass-line);
+  box-shadow: inset 0 1rpx 0 var(--glass-hi);
   transition: transform 0.12s ease, opacity 0.2s ease;
 }
 
 .btn::after { border: none; }
 
-.btn:active { transform: scale(0.96); opacity: 0.92; }
+.btn:active { transform: scale(0.96); opacity: 0.88; }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
-  color: #fff;
-  box-shadow: var(--shadow-float);
+  background: linear-gradient(135deg, rgba(100, 210, 255, 0.85) 0%, rgba(125, 122, 255, 0.85) 100%);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: var(--shadow-float), inset 0 1rpx 0 var(--glass-hi);
 }
 
 .btn-ghost {
-  background: var(--brand-soft);
-  color: var(--brand);
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
 }
 
 .btn-disabled {
-  opacity: 0.4;
+  opacity: 0.38;
   pointer-events: none;
   box-shadow: none;
 }
@@ -121,8 +182,27 @@ page {
   border-radius: 999rpx;
   font-size: 22rpx;
   font-weight: 500;
-  background: var(--brand-soft);
-  color: var(--brand);
+  background: rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1rpx solid var(--glass-line);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ================= 进度条 ================= */
+
+.prog-bar {
+  height: 12rpx;
+  border-radius: 999rpx;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ================= 动效 ================= */
@@ -143,4 +223,10 @@ page {
 @keyframes pop {
   from { opacity: 0; transform: scale(0.82); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* 玻璃分隔线 */
+.hairline {
+  height: 1rpx;
+  background: var(--glass-line);
 }

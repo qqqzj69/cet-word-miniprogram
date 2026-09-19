@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, rgba(245, 166, 35, 0.10) 0%, rgba(255, 107, 91, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(255, 214, 10, 0.26) 0%, rgba(255, 69, 58, 0.20) 100%);
 }
 
 .s-streak {
@@ -15,26 +15,29 @@
 }
 
 .s-streak-num {
-  font-size: 88rpx;
-  font-weight: 700;
+  font-size: 96rpx;
+  font-weight: 200;
   line-height: 1;
-  color: var(--amber);
-  letter-spacing: -2rpx;
+  color: #FFD60A;
+  letter-spacing: -3rpx;
 }
 
 .s-streak-unit {
   font-size: 30rpx;
-  color: var(--amber);
+  color: rgba(255, 214, 10, 0.9);
+  font-weight: 300;
 }
 
 .s-streak-label {
-  margin-top: 8rpx;
+  margin-top: 12rpx;
   font-size: 26rpx;
+  font-weight: 300;
 }
 
 .s-streak-sub {
   margin-top: 2rpx;
   font-size: 22rpx;
+  font-weight: 300;
 }
 
 .s-checkin {
@@ -59,12 +62,13 @@
 }
 
 .s-cell-num {
-  font-size: 52rpx;
-  font-weight: 700;
+  font-size: 56rpx;
+  font-weight: 200;
   line-height: 1.1;
+  letter-spacing: -1rpx;
 }
 
-.s-cell-label { font-size: 24rpx; }
+.s-cell-label { font-size: 24rpx; font-weight: 300; }
 
 /* ---------- 近 7 天 ---------- */
 .s-week {
@@ -78,7 +82,7 @@
   justify-content: space-between;
 }
 
-.s-week-total { font-size: 24rpx; }
+.s-week-total { font-size: 24rpx; font-weight: 300; }
 
 .s-chart {
   margin-top: 32rpx;
@@ -99,7 +103,8 @@
 
 .s-col-val {
   font-size: 22rpx;
-  color: var(--ink-2);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1;
 }
 
@@ -111,11 +116,12 @@
   justify-content: center;
 }
 
+/* 玻璃柱体：未达成是半透明白，今天用高亮渐变 */
 .s-bar {
   width: 32rpx;
   min-height: 8rpx;
   border-radius: 999rpx;
-  background: var(--bg-soft);
+  background: rgba(255, 255, 255, 0.26);
   transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -125,11 +131,12 @@
 
 .s-col-label {
   font-size: 22rpx;
+  font-weight: 300;
 }
 
 .s-col-label-hot {
   color: var(--brand);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* ---------- 累计 ---------- */
@@ -152,29 +159,20 @@
 }
 
 .s-acc-num {
-  font-size: 40rpx;
-  font-weight: 700;
+  font-size: 44rpx;
+  font-weight: 200;
+  letter-spacing: -1rpx;
 }
 
-.s-acc-label { font-size: 22rpx; }
+.s-acc-label { font-size: 22rpx; font-weight: 300; }
 
 .prog-bar {
   margin-top: 32rpx;
-  height: 16rpx;
-  border-radius: 999rpx;
-  background: var(--bg-soft);
-  overflow: hidden;
-}
-
-.prog-fill {
-  height: 100%;
-  border-radius: 999rpx;
-  background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%);
-  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .s-acc-foot {
   margin-top: 16rpx;
   font-size: 24rpx;
+  font-weight: 300;
   text-align: center;
 }

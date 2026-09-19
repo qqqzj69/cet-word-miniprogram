@@ -8,6 +8,7 @@
 .w-sub {
   margin-top: 8rpx;
   font-size: 26rpx;
+  font-weight: 300;
 }
 
 /* ---------- 复习入口 ---------- */
@@ -16,16 +17,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, rgba(255, 107, 91, 0.10) 0%, rgba(245, 166, 35, 0.10) 100%);
+  background: linear-gradient(135deg, rgba(255, 69, 58, 0.28) 0%, rgba(255, 214, 10, 0.20) 100%);
 }
 
 .w-cta-sub {
   margin-top: 6rpx;
   font-size: 24rpx;
+  font-weight: 300;
 }
 
 .w-cta-arrow {
-  color: var(--coral);
+  color: #FF9A92;
   font-size: 44rpx;
   line-height: 1;
 }
@@ -46,6 +48,7 @@
 .w-empty-sub {
   margin-top: 4rpx;
   font-size: 24rpx;
+  font-weight: 300;
 }
 
 /* ---------- 列表 ---------- */
@@ -66,10 +69,11 @@
 .w-item-sub {
   font-size: 24rpx;
   margin-top: 4rpx;
+  font-weight: 300;
 }
 
 .w-item-arrow {
-  color: var(--ink-3);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 40rpx;
   line-height: 1;
   transition: transform 0.25s ease;
@@ -95,7 +99,8 @@
 .w-item-meaning {
   font-size: 28rpx;
   line-height: 1.7;
-  color: var(--ink-2);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.82);
   word-break: break-all;
 }
 

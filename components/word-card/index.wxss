@@ -25,10 +25,12 @@
   justify-content: center;
   padding: 48rpx 40rpx;
   box-sizing: border-box;
-  border-radius: 32rpx;
-  background: var(--card);
-  border: 1rpx solid var(--line);
-  box-shadow: var(--shadow-card);
+  border-radius: 36rpx;
+  /* 3D 变换的元素上 backdrop-filter 在部分机型会闪，
+     改用多层半透明渐变模拟玻璃，视觉一致且稳妥 */
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.10) 55%, rgba(255, 255, 255, 0.06) 100%);
+  border: 1rpx solid var(--glass-line);
+  box-shadow: var(--shadow-card), inset 0 1rpx 0 var(--glass-hi);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
@@ -46,25 +48,27 @@
 }
 
 .wc-word {
-  font-size: 76rpx;
-  font-weight: 700;
-  letter-spacing: -1rpx;
-  color: var(--ink);
+  font-size: 84rpx;
+  font-weight: 300;
+  letter-spacing: -2rpx;
+  color: #fff;
   word-break: break-all;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1.2;
+  text-shadow: 0 2rpx 24rpx rgba(0, 0, 0, 0.25);
 }
 
 .wc-word-sm {
   font-size: 34rpx;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--brand);
 }
 
 .wc-meaning {
-  font-size: 32rpx;
-  line-height: 1.7;
-  color: var(--ink-2);
+  font-size: 34rpx;
+  line-height: 1.75;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.86);
   word-break: break-all;
 }
 

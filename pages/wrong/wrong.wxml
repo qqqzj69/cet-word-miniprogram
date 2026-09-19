@@ -1,3 +1,9 @@
+<view class="bg">
+  <view class="blob blob-1"></view>
+  <view class="blob blob-2"></view>
+  <view class="blob blob-3"></view>
+</view>
+
 <view class="page-pad">
   <!-- 顶部 -->
   <view class="w-head fade-up">

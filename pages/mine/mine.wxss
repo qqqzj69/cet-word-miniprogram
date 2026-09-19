@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: linear-gradient(135deg, rgba(100, 210, 255, 0.24) 0%, rgba(125, 122, 255, 0.22) 100%);
 }
 
 .m-head-ring {
@@ -14,6 +15,7 @@
 
 .m-head-sub {
   font-size: 24rpx;
+  font-weight: 300;
   margin-top: 4rpx;
 }
 
@@ -30,11 +32,12 @@
 }
 
 .m-meta-num {
-  font-size: 40rpx;
-  font-weight: 700;
+  font-size: 44rpx;
+  font-weight: 200;
+  letter-spacing: -1rpx;
 }
 
-.m-meta-label { font-size: 22rpx; }
+.m-meta-label { font-size: 22rpx; font-weight: 300; }
 
 /* ---------- 分块 ---------- */
 .m-block {
@@ -59,25 +62,25 @@
   position: relative;
   padding: 28rpx;
   border-radius: var(--r-md);
-  background: var(--bg-soft);
-  border: 2rpx solid transparent;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1rpx solid rgba(255, 255, 255, 0.12);
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.12s ease;
 }
 
 .m-level-on {
-  border-color: var(--brand);
-  background: var(--brand-soft);
+  border-color: rgba(100, 210, 255, 0.75);
+  background: rgba(100, 210, 255, 0.18);
 }
 
 .m-level-name {
   font-size: 30rpx;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .m-level-count {
   margin-top: 6rpx;
   font-size: 24rpx;
-  color: var(--ink-3);
+  font-weight: 300;
 }
 
 .m-level-check {
@@ -87,7 +90,7 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  background: var(--brand);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
   color: #fff;
   font-size: 24rpx;
   display: flex;
@@ -105,25 +108,26 @@
   flex: 1;
   height: 88rpx;
   border-radius: var(--r-sm);
-  background: var(--bg-soft);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1rpx solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 30rpx;
-  font-weight: 600;
-  border: 2rpx solid transparent;
+  font-weight: 300;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .m-goal-on {
-  border-color: var(--brand);
-  background: var(--brand-soft);
-  color: var(--brand);
+  border-color: rgba(100, 210, 255, 0.75);
+  background: rgba(100, 210, 255, 0.18);
+  color: #fff;
 }
 
 .m-goal-tip {
   margin-top: 20rpx;
   font-size: 22rpx;
+  font-weight: 300;
 }
 
 /* ---------- 数据行 ---------- */
@@ -133,14 +137,15 @@
   justify-content: space-between;
   padding: 24rpx 0;
   font-size: 30rpx;
+  font-weight: 300;
 }
 
 .m-row + .m-row {
-  border-top: 1rpx solid var(--line);
+  border-top: 1rpx solid rgba(255, 255, 255, 0.14);
 }
 
 .m-row-arrow {
-  color: var(--ink-3);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 40rpx;
   line-height: 1;
 }
@@ -149,4 +154,5 @@
   text-align: center;
   margin-top: 40rpx;
   font-size: 22rpx;
+  font-weight: 300;
 }

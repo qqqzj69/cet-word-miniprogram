@@ -1,6 +1,6 @@
 <view
   class="ring"
-  style="width:{{size}}rpx;height:{{size}}rpx;background:conic-gradient(var(--brand) 0turn {{percent / 100}}turn, var(--bg-soft) {{percent / 100}}turn 1turn)"
+  style="width:{{size}}rpx;height:{{size}}rpx;background:conic-gradient(from -90deg, var(--brand) 0, var(--brand-2) {{percent / 100}}turn, rgba(255,255,255,0.14) {{percent / 100}}turn 1turn)"
 >
   <view
     class="ring-hole"
