@@ -35,15 +35,27 @@
     </view>
   </view>
 
-  <!-- 近 7 日 -->
+  <!-- 近 N 天：可切换区间 -->
   <view class="card s-week fade-up">
     <view class="s-week-head">
-      <view class="h3">近 7 天学习量</view>
-      <view class="t3 s-week-total num">共 {{st.weekTotal}} 词</view>
+      <view class="h3">学习趋势</view>
+      <view class="s-range">
+        <view
+          class="s-range-item num {{range === item.value ? 's-range-on' : ''}}"
+          wx:for="{{ranges}}"
+          wx:key="value"
+          data-r="{{item.value}}"
+          bindtap="onPickRange"
+          hover-class="m-hover"
+        >{{item.label}}</view>
+      </view>
     </view>
-    <view class="s-chart">
-      <view class="s-col" wx:for="{{weekBars}}" wx:key="date">
-        <view class="s-col-val num" wx:if="{{!item.isEmpty}}">{{item.learned}}</view>
+    <view class="t3 s-week-total num">
+      近 {{range}} 天共学 {{st.rangeTotal}} 词 · 有记录 {{st.rangeActiveDays}} 天 · 日均 {{st.rangeAvg}} 词
+    </view>
+    <view class="s-chart s-chart-{{range}}">
+      <view class="s-col" wx:for="{{bars}}" wx:key="index">
+        <view class="s-col-val num" wx:if="{{!item.isEmpty}}">{{item.value}}</view>
         <view class="s-bar-track">
           <view class="s-bar {{item.isToday ? 's-bar-hot' : ''}}" style="height:{{item.hPct}}%"></view>
         </view>

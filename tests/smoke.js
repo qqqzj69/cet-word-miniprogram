@@ -184,4 +184,23 @@ delete mem[KEY];
 const emptyH = fresh().getHistory(10, 0);
 ok('无记录时返回空列表', emptyH.total === 0 && emptyH.days.length === 0 && emptyH.hasMore === false);
 
+console.log('\n[11] 继续加练 + 统计区间');
+progress = fresh();
+progress.init();
+const s0 = progress.ensureSession('daily');
+for (let i = 0; i < s0.q.length; i++) progress.rate('daily', s0.q[i], 'right');
+ok('学完一轮后会话到底', progress.getSession('daily').i === s0.q.length);
+const s1 = progress.resetSession('daily');
+ok('继续加练：重建会话且进度归零', s1.i === 0);
+ok('继续加练：拿到新的一批词', s1.q.length > 0);
+
+const st7 = progress.getStats(7);
+const st30 = progress.getStats(30);
+const st90 = progress.getStats(90);
+ok('7 天：7 根柱子', st7.bars.length === 7 && st7.range === 7);
+ok('30 天：30 根柱子', st30.bars.length === 30 && st30.range === 30);
+ok('90 天：按周聚合成 13 根', st90.bars.length === 13 && st90.range === 90);
+ok('区间统计：30 天总数 >= 7 天总数', st30.rangeTotal >= st7.rangeTotal && st90.rangeTotal >= st30.rangeTotal);
+ok('区间统计：最大值与活跃天数有效', st7.rangeMax >= 1 && st7.rangeActiveDays >= 1);
+
 console.log('\n全部通过：' + passed + ' 项 ✓');

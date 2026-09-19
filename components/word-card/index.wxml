@@ -13,10 +13,10 @@
     </view>
 
     <!-- 行为提示：明确告诉用户点一下会发生什么 -->
-    <view class="wc-hint {{revealed ? 'wc-hint-go' : ''}}">
+    <view class="wc-hint">
       <view class="wc-hint-dot"></view>
-      <text wx:if="{{revealed}}">再点一次 = 认识，自动进入下一个</text>
-      <text wx:else>轻点卡片，显示中文释义</text>
+      <text wx:if="{{revealed}}">已显示释义，再次轻点可收起</text>
+      <text wx:else>轻点卡片查看中文释义</text>
     </view>
   </view>
 </view>

@@ -25,8 +25,7 @@ Page({
       ? Math.min(100, Math.round(ov.done * 100 / ov.queueTotal))
       : 100;
     let heroBtn = '开始学习';
-    if (ov.queueTotal === 0) heroBtn = '今日词库已清空';
-    else if (ov.done >= ov.queueTotal) heroBtn = '今日任务已完成';
+    if (ov.done >= ov.queueTotal && ov.queueTotal > 0) heroBtn = '继续加练';
     else if (ov.done > 0) heroBtn = '继续学习';
     this.setData({
       ov: ov,
@@ -38,11 +37,7 @@ Page({
   },
 
   goStudy() {
-    const ov = this.data.ov;
-    if (ov.queueTotal === 0 || ov.done >= ov.queueTotal) {
-      wx.showToast({ title: '今天的任务已完成，明天继续', icon: 'none' });
-      return;
-    }
+    // 学完一轮也能进去，学习页提供「继续加练」
     wx.navigateTo({ url: '/pages/study/study' });
   },
 

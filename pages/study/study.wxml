@@ -24,29 +24,35 @@
       <word-card class="fade-up" item="{{item}}" revealed="{{revealed}}" bind:tap="onCardTap" />
     </view>
 
-    <!-- 操作区：与卡片分开，任何时候都可直接标记 -->
-    <view class="study-actions">
-      <view class="ra ra-wrong" hover-class="ra-hover" bindtap="onRate" data-r="wrong">
-        <text class="ra-title">不认识</text>
-      </view>
-      <view class="ra ra-vague" hover-class="ra-hover" bindtap="onRate" data-r="vague">
-        <text class="ra-title">模糊</text>
-      </view>
-      <view class="ra ra-right {{revealed ? 'ra-active' : ''}}" hover-class="ra-hover" bindtap="onRate" data-r="right">
-        <text class="ra-title">认识</text>
+    <!-- 已看完释义：进入下一个 -->
+    <view class="study-actions" wx:if="{{rated}}">
+      <view class="btn btn-primary study-next" hover-class="btn-soft" bindtap="onNext">下一个</view>
+      <view class="study-tip t3">
+        {{rating === 'wrong' ? '已记下：这个词会更快再出现' : '已记下：明天再来复习'}}
       </view>
     </view>
 
-    <view class="study-tip t3">
-      {{revealed ? '点卡片 = 认识；或直接用下方按钮标记' : '点卡片看释义，再点一次算认识；也可直接标不认识'}}
+    <!-- 未评价：认识直接跳过 / 不认识先看释义 -->
+    <view class="study-actions" wx:else>
+      <view class="ra ra-wrong" hover-class="ra-hover" bindtap="onUnknow" data-r="wrong">
+        <text class="ra-title">不认识</text>
+      </view>
+      <view class="ra ra-vague" hover-class="ra-hover" bindtap="onUnknow" data-r="vague">
+        <text class="ra-title">模糊</text>
+      </view>
+      <view class="ra ra-right" hover-class="ra-hover" bindtap="onKnow">
+        <text class="ra-title">认识</text>
+      </view>
+      <view class="study-tip t3">点「认识」直接过；点「不认识」会先显示中文</view>
     </view>
   </block>
 
-  <!-- 完成 -->
+  <!-- 完成：已自动打卡 -->
   <block wx:else>
     <view class="study-done card pop">
       <view class="study-done-badge">✓</view>
       <view class="h2">本轮学习完成</view>
+      <view class="study-done-checkin" wx:if="{{checkinMsg}}">{{checkinMsg}}</view>
       <view class="study-done-grid num">
         <view class="study-done-cell">
           <view class="study-done-num" style="color:#248A3D">{{counts.right}}</view>
@@ -62,10 +68,8 @@
         </view>
       </view>
       <view class="study-done-btns">
-        <view class="btn btn-primary" wx:if="{{!checkedToday}}" bindtap="onCheckin">立即打卡</view>
-        <view class="btn {{checkedToday ? 'btn-primary' : 'btn-ghost'}}" bindtap="onClose">
-          {{checkedToday ? '返回' : '稍后再说'}}
-        </view>
+        <view class="btn btn-primary" bindtap="onContinue">继续加练</view>
+        <view class="btn btn-ghost" bindtap="onClose">回首页</view>
       </view>
     </view>
   </block>

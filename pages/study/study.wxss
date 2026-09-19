@@ -90,7 +90,13 @@
   transition: transform 0.12s ease, opacity 0.25s ease;
 }
 
-.ra-hover { transform: scale(0.95); }
+/* 柔和一点的按压反馈：只变淡，不缩放 */
+.ra-hover { opacity: 0.72; }
+.btn-soft { opacity: 0.82; }
+
+.study-next {
+  width: 100%;
+}
 
 .ra-title { color: inherit; }
 
@@ -133,7 +139,7 @@
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(100, 210, 255, 0.9) 0%, rgba(125, 122, 255, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.9) 0%, rgba(94, 92, 230, 0.9) 100%);
   color: #fff;
   font-size: 60rpx;
   font-weight: 300;
@@ -141,6 +147,16 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-float);
+}
+
+/* 自动打卡提示 */
+.study-done-checkin {
+  background: rgba(52, 199, 89, 0.16);
+  color: #248A3D;
+  padding: 12rpx 32rpx;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  font-weight: 500;
 }
 
 .study-done-grid {

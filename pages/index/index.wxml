@@ -24,7 +24,7 @@
         </view>
       </progress-ring>
     </view>
-    <view class="btn btn-primary hero-btn {{ov.done >= ov.queueTotal || ov.queueTotal === 0 ? 'btn-disabled' : ''}}" bindtap="goStudy">
+    <view class="btn btn-primary hero-btn" bindtap="goStudy">
       {{heroBtn}}
     </view>
     <view class="t3 hero-foot num">今日已学 {{ov.today.learned}} 词 · 连续打卡 {{ov.streak}} 天</view>

@@ -67,12 +67,6 @@ node tests/smoke.js
 
 UI 参考项目：[Tencent/tdesign-miniprogram](https://github.com/Tencent/tdesign-miniprogram)、[ant-design/ant-design-mini](https://github.com/ant-design/ant-design-mini)、[openages/light-design](https://github.com/openages/light-design)
 
-## 📚 数据来源与声明
-
-词库源自开源项目 [KyleBing/english-vocabulary](https://github.com/KyleBing/english-vocabulary)，本项目仅做格式转换、释义合并与本地内置，**仅用于个人学习**。
-
-⚠️ 该词库源仓库**未声明开源许可证**。如需正式上架或商用，请替换为自有词库或事先取得授权。
-
 ## 📄 License
 
-代码部分 MIT。词库数据版权归原整理者所有，使用请遵循上文声明。
+代码部分 MIT。

@@ -88,7 +88,7 @@ Page({
   onAbout() {
     wx.showModal({
       title: '关于 贝贝四六级',
-      content: '本地离线背单词小程序。\n词库来源：KyleBing/english-vocabulary（GitHub 开源项目，仅用于个人学习）。\n数据全部保存在本机，可随时在下方清除。',
+      content: '一个本地离线的背单词小程序。\n全部词库内置在小程序里，断网也能用。\n学习进度、错词本与打卡记录都保存在本机，可随时在上方清除。',
       showCancel: false,
       confirmText: '知道了'
     });

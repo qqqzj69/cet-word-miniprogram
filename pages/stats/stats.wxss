@@ -78,11 +78,49 @@
 
 .s-week-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
+  gap: 20rpx;
 }
 
-.s-week-total { font-size: 24rpx; font-weight: 300; }
+/* 区间切换 */
+.s-range {
+  display: flex;
+  gap: 8rpx;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 999rpx;
+  padding: 6rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.9);
+}
+
+.s-range-item {
+  padding: 8rpx 22rpx;
+  border-radius: 999rpx;
+  font-size: 23rpx;
+  font-weight: 500;
+  color: var(--ink-3);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.s-range-on {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+  color: #fff;
+}
+
+.s-week-total {
+  margin-top: 12rpx;
+  font-size: 23rpx;
+}
+
+.s-chart-30 { gap: 6rpx; }
+.s-chart-90 { gap: 10rpx; }
+
+/* 柱子随区间变细，保证 30/90 根也放得下 */
+.s-chart-30 .s-bar { width: 14rpx; border-radius: 6rpx; }
+.s-chart-90 .s-bar { width: 30rpx; }
+
+.s-chart-30 .s-col-val { font-size: 18rpx; }
+.s-chart-30 .s-col-label { font-size: 18rpx; }
 
 .s-chart {
   margin-top: 32rpx;

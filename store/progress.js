@@ -60,6 +60,15 @@ function masterWord(word) {
 /** 已构建的当日会话（不触发重建） */
 function getSession(mode) { return getDb().sessions[mode] || null; }
 
+/** 丢弃当前会话并重建，用于「继续加练」学完一轮后再来一批 */
+function resetSession(mode) {
+  const d = getDb();
+  if (!d.sessions) d.sessions = {};
+  delete d.sessions[mode];
+  persist();
+  return ensureSession(mode);
+}
+
 /* ---------------- 设置 ---------------- */
 
 function setLevel(lv) {
@@ -288,22 +297,60 @@ function getOverview() {
 }
 
 /** 统计页 */
-function getStats() {
+function getStats(range) {
   const d = getDb();
   const t = today();
   const day = d.daily[t] || { learned: 0, right: 0, vague: 0, wrong: 0 };
+  const r = (range === 30 || range === 90) ? range : 7;
+
+  const bars = [];
+  let rangeTotal = 0;
+  let rangeMax = 0;
+  let activeDays = 0;
+
+  if (r === 90) {
+    // 90 天按周聚合，最近 13 周
+    const WEEKS = 13;
+    for (let w = WEEKS - 1; w >= 0; w--) {
+      let sum = 0;
+      for (let k = 0; k < 7; k++) {
+        const rec = d.daily[dateUtil.offsetStr(-(w * 7 + k))];
+        if (rec) sum += (rec.learned || 0);
+      }
+      if (sum > 0) activeDays++;
+      if (sum > rangeMax) rangeMax = sum;
+      rangeTotal += sum;
+      bars.push({
+        label: w === 0 ? '本周' : (w % 2 === 0 ? w + '周前' : ''),
+        value: sum,
+        showLabel: true
+      });
+    }
+  } else {
+    for (let i = r - 1; i >= 0; i--) {
+      const ds = dateUtil.offsetStr(-i);
+      const rec = d.daily[ds];
+      const v = rec ? (rec.learned || 0) : 0;
+      if (v > 0) activeDays++;
+      if (v > rangeMax) rangeMax = v;
+      rangeTotal += v;
+      bars.push({
+        label: i === 0 ? '今天' : (r === 7 ? dateUtil.weekday(ds) : dateUtil.shortDate(ds)),
+        value: v,
+        // 30 天时柱子密集，标签隔 5 根显示一次
+        showLabel: r === 7 ? true : ((r - 1 - i) % 5 === 0 || i === 0)
+      });
+    }
+  }
 
   const week = [];
-  let totalWeek = 0;
   for (let i = 6; i >= 0; i--) {
     const ds = dateUtil.offsetStr(-i);
     const rec = d.daily[ds];
-    const learned = rec ? (rec.learned || 0) : 0;
-    totalWeek += learned;
     week.push({
       date: ds,
       label: i === 0 ? '今天' : dateUtil.weekday(ds),
-      learned: learned
+      learned: rec ? (rec.learned || 0) : 0
     });
   }
 
@@ -315,7 +362,13 @@ function getStats() {
     accuracy: day.learned ? Math.round(day.right * 100 / day.learned) : 0,
     week: week,
     weekMax: Math.max.apply(null, week.map(function (x) { return x.learned; }).concat([1])),
-    weekTotal: totalWeek,
+    weekTotal: week.reduce(function (a, b) { return a + b.learned; }, 0),
+    range: r,
+    bars: bars,
+    rangeTotal: rangeTotal,
+    rangeMax: rangeMax || 1,
+    rangeActiveDays: activeDays,
+    rangeAvg: activeDays ? Math.round(rangeTotal / activeDays) : 0,
     totalLearned: totalLearned,
     streak: dateUtil.streak(d.checkins),
     totalCheckins: d.checkins.length,
@@ -359,6 +412,7 @@ module.exports = {
   setGoal: setGoal,
   ensureSession: ensureSession,
   getSession: getSession,
+  resetSession: resetSession,
   rate: rate,
   checkin: checkin,
   getLevel: getLevel,

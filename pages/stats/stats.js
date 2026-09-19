@@ -1,33 +1,42 @@
 const progress = require('../../store/progress');
 
+const RANGES = [
+  { value: 7, label: '7 天' },
+  { value: 30, label: '30 天' },
+  { value: 90, label: '90 天' }
+];
+
 Page({
   data: {
     st: null,
-    weekBars: []
+    range: 7,
+    ranges: RANGES,
+    bars: []
   },
 
   onShow() {
-    const st = progress.getStats();
-    const max = st.weekMax || 1;
-    const weekBars = st.week.map(function (d, idx) {
-      return {
-        date: d.date,
-        label: d.label,
-        learned: d.learned,
-        isToday: idx === 6,
-        hPct: Math.round((d.learned / max) * 100),
-        isEmpty: d.learned === 0
-      };
-    });
-    this.setData({ st: st, weekBars: weekBars });
+    this.refresh(this.data.range);
   },
 
-  onCheckin() {
-    const r = progress.checkin();
-    wx.showToast({
-      title: r.ok ? '打卡成功 · 连续 ' + r.streak + ' 天' : r.msg,
-      icon: 'none'
+  refresh(range) {
+    const st = progress.getStats(range);
+    const max = st.rangeMax || 1;
+    const last = st.bars.length - 1;
+    const bars = st.bars.map(function (b, idx) {
+      return {
+        label: b.showLabel ? b.label : '',
+        value: b.value,
+        isToday: idx === last,
+        isEmpty: b.value === 0,
+        hPct: Math.round((b.value / max) * 100)
+      };
     });
-    if (r.ok) this.onShow();
+    this.setData({ st: st, range: st.range, bars: bars });
+  },
+
+  onPickRange(e) {
+    const r = parseInt(e.currentTarget.dataset.r, 10);
+    if (r === this.data.range) return;
+    this.refresh(r);
   }
 });
