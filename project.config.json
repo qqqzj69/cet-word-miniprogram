@@ -27,7 +27,9 @@
       { "type": "folder", "value": "tests" },
       { "type": "folder", "value": "docs" },
       { "type": "file", "value": "README.md" },
-      { "type": "file", "value": ".gitignore" }
+      { "type": "file", "value": ".gitignore" },
+      { "type": "suffix", "value": ".miora" },
+      { "type": "folder", "value": "贝贝四六级-头像方案_assets" }
     ],
     "include": []
   },
