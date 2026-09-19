@@ -5,85 +5,80 @@
 </view>
 
 <view class="page-pad" wx:if="{{ov}}">
-  <!-- 顶部问候 -->
-  <view class="head fade-up">
-    <view class="head-left">
-      <view class="h1">{{greeting}}</view>
-      <view class="t3 head-date">{{ov.date}} · {{ov.weekday}}</view>
+  <!-- 顶层：日期 + 打卡状态灯 + 搜索（工具条，刻意做小） -->
+  <view class="topbar fade-up">
+    <view class="topbar-left">
+      <text class="topbar-date num">{{ov.date}} {{ov.weekday}}</text>
+      <view
+        class="ck {{ov.checkedToday ? 'ck-on' : ''}}"
+        hover-class="ck-hover"
+        bindtap="onCheckin"
+      >
+        <view class="ck-led"></view>
+        <text class="ck-text">{{ov.checkedToday ? '已打卡' : '未打卡'}}</text>
+      </view>
     </view>
-    <view class="chip">{{ov.levelName}}</view>
+
+    <view class="sbox">
+      <text class="sbox-icon">🔍</text>
+      <input
+        class="sbox-input"
+        placeholder="查单词"
+        placeholder-class="sbox-ph"
+        value="{{kw}}"
+        confirm-type="search"
+        bindinput="onSearchInput"
+        bindconfirm="goSeeAll"
+      />
+      <text class="sbox-clear" wx:if="{{kw}}" catchtap="onClearSearch">✕</text>
+    </view>
   </view>
 
-  <!-- 今日任务主卡 -->
-  <view class="card hero fade-up">
+  <!-- 搜索结果（仅在输入时出现） -->
+  <view class="card sres fade-up" wx:if="{{searching}}">
+    <view class="sres-row" wx:for="{{results}}" wx:key="i" bindtap="goSeeAll">
+      <text class="sres-en">{{item.w}}</text>
+      <text class="t3 sres-cn">{{item.m}}</text>
+    </view>
+    <view class="t3 sres-empty" wx:if="{{results.length === 0}}">没有找到「{{kw}}」</view>
+    <view class="sres-more" wx:else bindtap="goSeeAll">查看全部结果 ›</view>
+  </view>
+
+  <!-- 唯一视觉焦点：开始学习 -->
+  <view class="card hero fade-up" wx:else>
     <view class="hero-ring-wrap">
-      <progress-ring percent="{{percent}}" size="300" stroke="20">
+      <progress-ring percent="{{percent}}" size="360" stroke="22">
         <view class="hero-ring">
-          <view class="h1 num">{{ov.done}}</view>
+          <view class="hero-num num">{{ov.done}}</view>
           <view class="t3 hero-sub">/ {{ov.queueTotal}} 词</view>
         </view>
       </progress-ring>
     </view>
-    <view class="btn btn-primary hero-btn" bindtap="goStudy">
+    <view class="btn btn-primary hero-btn" hover-class="hero-btn-hover" bindtap="goStudy">
       {{heroBtn}}
     </view>
-    <view class="t3 hero-foot num">今日已学 {{ov.today.learned}} 词 · 连续打卡 {{ov.streak}} 天</view>
+    <view class="t3 hero-foot num">今日已学 {{ov.today.learned}} 词 · 连续 {{ov.streak}} 天</view>
   </view>
 
-  <!-- 错词本入口 -->
-  <view class="card row-card fade-up" bindtap="goWrong" hover-class="row-hover">
-    <view class="row-left">
-      <view class="row-icon" style="background:rgba(255,59,48,0.14);color:#FF3B30">错</view>
-      <view class="row-text">
-        <view class="h3">错词本</view>
-        <view class="t3 row-sub num">{{ov.acc.wrong}} 个词待巩固</view>
+  <!-- 辅助入口（弱化：三个紧凑入口 + 一行进度） -->
+  <view class="card aux fade-up">
+    <view class="aux-row">
+      <view class="aux-item" bindtap="goWrong" hover-class="aux-hover">
+        <view class="aux-value num" style="color:#FF3B30">{{ov.acc.wrong}}</view>
+        <view class="t3 aux-label">错词本</view>
+      </view>
+      <view class="aux-item" bindtap="goHistory" hover-class="aux-hover">
+        <view class="aux-value num" style="color:var(--brand)">{{historyDays}}</view>
+        <view class="t3 aux-label">学习历史</view>
+      </view>
+      <view class="aux-item" bindtap="goSearch" hover-class="aux-hover">
+        <view class="aux-value num" style="color:var(--brand-2)">{{ov.acc.mastered}}</view>
+        <view class="t3 aux-label">已掌握</view>
       </view>
     </view>
-    <view class="row-arrow">›</view>
-  </view>
-
-  <!-- 查词入口 -->
-  <view class="card row-card fade-up" bindtap="goSearch" hover-class="row-hover">
-    <view class="row-left">
-      <view class="row-icon" style="background:rgba(94,92,230,0.14);color:var(--brand-2)">查</view>
-      <view class="row-text">
-        <view class="h3">查单词</view>
-        <view class="t3 row-sub">查词义、音标和例句</view>
-      </view>
-    </view>
-    <view class="row-arrow">›</view>
-  </view>
-
-  <!-- 每日历史入口 -->
-  <view class="card row-card fade-up" bindtap="goHistory" hover-class="row-hover">
-    <view class="row-left">
-      <view class="row-icon" style="background:rgba(10,132,255,0.14);color:var(--brand)">历</view>
-      <view class="row-text">
-        <view class="h3">每日背单词历史</view>
-        <view class="t3 row-sub num">{{historyDays > 0 ? '累计 ' + historyDays + ' 天记录，可查看昨天与更早' : '还没有学习记录'}}</view>
-      </view>
-    </view>
-    <view class="row-arrow">›</view>
-  </view>
-
-  <!-- 打卡 -->
-  <view class="card row-card fade-up" bindtap="onCheckin" hover-class="row-hover">
-    <view class="row-left">
-      <view class="row-icon" style="background:rgba(255,149,0,0.18);color:#FF9500">连</view>
-      <view class="row-text">
-        <view class="h3">每日打卡</view>
-        <view class="t3 row-sub num">已连续 {{ov.streak}} 天，累计 {{ov.acc.learned ? ov.acc.learned : 0}} 词在学</view>
-      </view>
-    </view>
-    <view class="chip {{ov.checkedToday ? 'chip-done' : ''}}">{{ov.checkedToday ? '已打卡' : '去打卡'}}</view>
-  </view>
-
-  <!-- 词库进度 -->
-  <view class="card prog-card fade-up">
-    <view class="h3">{{ov.levelName}} · 学习进度</view>
     <view class="prog-bar">
       <view class="prog-fill" style="width:{{ov.acc.total ? (ov.acc.learned * 100 / ov.acc.total) : 0}}%"></view>
     </view>
-    <view class="t3 prog-foot num">已学 {{ov.acc.learned}} / {{ov.acc.total}} 词，已掌握 {{ov.acc.mastered}} 词</view>
+    <view class="t3 aux-foot num">{{ov.levelName}} 已学 {{ov.acc.learned}} / {{ov.acc.total}} 词</view>
   </view>
 </view>

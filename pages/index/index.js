@@ -1,4 +1,5 @@
 const progress = require('../../store/progress');
+const dict = require('../../data/index');
 
 function greeting() {
   const h = new Date().getHours();
@@ -15,7 +16,10 @@ Page({
     percent: 0,
     heroBtn: '',
     greeting: '',
-    historyDays: 0
+    historyDays: 0,
+    kw: '',
+    results: [],
+    searching: false
   },
 
   onShow() {
@@ -36,10 +40,56 @@ Page({
     });
   },
 
+  /* ---------------- 学习 ---------------- */
+
   goStudy() {
     // 学完一轮也能进去，学习页提供「继续加练」
     wx.navigateTo({ url: '/pages/study/study' });
   },
+
+  /* ---------------- 打卡状态灯 ---------------- */
+
+  onCheckin() {
+    const r = progress.checkin();
+    wx.showToast({
+      title: r.ok ? '打卡成功 · 连续 ' + r.streak + ' 天' : r.msg,
+      icon: 'none'
+    });
+    this.onShow();
+  },
+
+  /* ---------------- 顶部搜索 ---------------- */
+
+  onSearchInput(e) {
+    const kw = e.detail.value;
+    this.setData({ kw: kw });
+    if (this.timer) clearTimeout(this.timer);
+    const self = this;
+    this.timer = setTimeout(function () { self.homeSearch(kw); }, 300);
+  },
+
+  /** 首页轻量查询：只取前 6 条，完整结果交给查词页 */
+  homeSearch(kw) {
+    if (!kw || !kw.trim()) {
+      this.setData({ results: [], searching: false });
+      return;
+    }
+    const list = dict.searchWords(progress.getLevel(), kw, 6).map(function (x) {
+      return { i: x.i, w: x.w, m: x.m };
+    });
+    this.setData({ results: list, searching: true });
+  },
+
+  onClearSearch() {
+    this.setData({ kw: '', results: [], searching: false });
+  },
+
+  goSeeAll() {
+    const kw = this.data.kw || '';
+    wx.navigateTo({ url: '/pages/search/search?kw=' + encodeURIComponent(kw) });
+  },
+
+  /* ---------------- 辅助入口 ---------------- */
 
   goWrong() {
     wx.navigateTo({ url: '/pages/wrong/wrong' });
@@ -51,15 +101,5 @@ Page({
 
   goSearch() {
     wx.navigateTo({ url: '/pages/search/search' });
-  },
-
-  onCheckin() {
-    const r = progress.checkin();
-    if (r.ok) {
-      wx.showToast({ title: '打卡成功 · 连续 ' + r.streak + ' 天', icon: 'none' });
-    } else {
-      wx.showToast({ title: r.msg, icon: 'none' });
-    }
-    this.onShow();
   }
 });

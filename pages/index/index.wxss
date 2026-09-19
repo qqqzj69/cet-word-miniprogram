@@ -1,23 +1,164 @@
-.head {
+/* ================= 顶层工具条（刻意做小） ================= */
+
+.topbar {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 24rpx 8rpx 32rpx;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 4rpx 8rpx;
 }
 
-.head-date {
-  margin-top: 8rpx;
-  font-size: 26rpx;
+.topbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  flex-shrink: 0;
+}
+
+.topbar-date {
+  font-size: 23rpx;
   font-weight: 300;
+  color: var(--ink-3);
 }
 
-/* ---------- 今日任务主卡 ---------- */
+/* 打卡状态灯：极小，只做状态反馈 */
+.ck {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 4rpx 14rpx 4rpx 10rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 149, 0, 0.16);
+  border: 1rpx solid rgba(255, 149, 0, 0.28);
+}
+
+.ck-hover { opacity: 0.75; }
+
+.ck-led {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #FF9500;
+  animation: ckPulse 2s ease-in-out infinite;
+}
+
+.ck-text {
+  font-size: 21rpx;
+  font-weight: 500;
+  color: #C77700;
+}
+
+/* 已打卡：转绿并停止呼吸 */
+.ck-on {
+  background: rgba(52, 199, 89, 0.16);
+  border-color: rgba(52, 199, 89, 0.30);
+}
+
+.ck-on .ck-led {
+  background: #34C759;
+  animation: none;
+}
+
+.ck-on .ck-text { color: #248A3D; }
+
+@keyframes ckPulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* 搜索框：细长一条，不抢主视觉 */
+.sbox {
+  flex: 1;
+  min-width: 0;
+  height: 72rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1rpx solid var(--glass-line);
+  box-shadow: inset 0 1rpx 0 var(--glass-hi);
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  box-sizing: border-box;
+}
+
+.sbox-icon { font-size: 24rpx; }
+
+.sbox-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 27rpx;
+  color: var(--ink);
+}
+
+.sbox-ph { color: var(--ink-3); }
+
+.sbox-clear {
+  color: var(--ink-3);
+  font-size: 24rpx;
+  padding: 0 4rpx;
+}
+
+/* ================= 首页搜索结果 ================= */
+
+.sres {
+  margin-top: 20rpx;
+  padding: 12rpx 28rpx;
+}
+
+.sres-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18rpx;
+  padding: 20rpx 0;
+}
+
+.sres-row + .sres-row {
+  border-top: 1rpx solid var(--hair);
+}
+
+.sres-en {
+  font-size: 30rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.sres-cn {
+  font-size: 25rpx;
+  font-weight: 300;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sres-empty {
+  padding: 24rpx 0;
+  font-size: 25rpx;
+  font-weight: 300;
+  text-align: center;
+}
+
+.sres-more {
+  padding: 20rpx 0 16rpx;
+  text-align: center;
+  font-size: 25rpx;
+  font-weight: 500;
+  color: var(--brand);
+  border-top: 1rpx solid var(--hair);
+}
+
+/* ================= 唯一焦点：开始学习 ================= */
+
 .hero {
-  padding: 48rpx 40rpx 40rpx;
+  margin-top: 28rpx;
+  padding: 72rpx 40rpx 56rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32rpx;
+  gap: 44rpx;
 }
 
 .hero-ring {
@@ -27,81 +168,74 @@
   justify-content: center;
 }
 
+.hero-num {
+  font-size: 96rpx;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -3rpx;
+}
+
 .hero-sub {
   font-size: 24rpx;
-  margin-top: 2rpx;
+  margin-top: 6rpx;
 }
 
 .hero-btn {
   width: 100%;
+  height: 116rpx;
+  border-radius: 28rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
 }
+
+.hero-btn-hover { opacity: 0.86; }
 
 .hero-foot {
   font-size: 24rpx;
   font-weight: 300;
 }
 
-/* ---------- 通用行卡片 ---------- */
-.row-card {
+/* ================= 辅助入口（弱化） ================= */
+
+.aux {
   margin-top: 24rpx;
-  padding: 32rpx;
+  padding: 28rpx 32rpx 24rpx;
+}
+
+.aux-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.row-hover {
-  transform: scale(0.985);
-  transition: transform 0.12s ease;
-}
-
-.row-left {
+.aux-item {
+  flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 24rpx;
+  gap: 4rpx;
+  padding: 8rpx 0;
 }
 
-.row-icon {
-  width: 76rpx;
-  height: 76rpx;
-  border-radius: 22rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30rpx;
-  font-weight: 500;
-}
+.aux-hover { opacity: 0.6; }
 
-.row-sub {
-  font-size: 24rpx;
-  margin-top: 4rpx;
+.aux-value {
+  font-size: 40rpx;
   font-weight: 300;
+  line-height: 1.1;
 }
 
-.row-arrow {
-  color: var(--ink-3);
-  font-size: 44rpx;
-  line-height: 1;
-}
-
-.chip-done {
-  background: rgba(52, 199, 89, 0.16);
-  color: #248A3D;
-  border-color: rgba(52, 199, 89, 0.30);
-}
-
-/* ---------- 词库进度 ---------- */
-.prog-card {
-  margin-top: 24rpx;
-  padding: 32rpx;
+.aux-label {
+  font-size: 22rpx;
+  font-weight: 300;
 }
 
 .prog-bar {
   margin-top: 24rpx;
 }
 
-.prog-foot {
-  margin-top: 16rpx;
-  font-size: 24rpx;
+.aux-foot {
+  margin-top: 14rpx;
+  font-size: 22rpx;
   font-weight: 300;
+  text-align: center;
 }

@@ -11,11 +11,17 @@ Page({
     total: 0
   },
 
-  onLoad() {
+  onLoad(options) {
     this.setData({
       levelName: dict.getLevelName(progress.getLevel()),
       total: dict.getCount(progress.getLevel())
     });
+    // 从首页搜索框带关键词进入时，直接出结果
+    const kw = (options && options.kw) ? decodeURIComponent(options.kw) : '';
+    if (kw) {
+      this.setData({ kw: kw });
+      this.doSearch(kw);
+    }
   },
 
   onInput(e) {
