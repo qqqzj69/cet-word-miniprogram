@@ -21,7 +21,7 @@
   <!-- 学习中 -->
   <block wx:if="{{!finished}}">
     <view class="study-stage" wx:if="{{showCard}}">
-      <word-card class="fade-up" item="{{item}}" revealed="{{revealed}}" bind:tap="onCardTap" />
+      <word-card class="fade-up" item="{{item}}" revealed="{{revealed}}" bind:cardtap="onCardTap" />
     </view>
 
     <!-- 已看完释义：进入下一个 -->

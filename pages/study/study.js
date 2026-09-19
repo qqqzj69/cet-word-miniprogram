@@ -128,14 +128,11 @@ Page({
     });
   },
 
-  /** 看完释义后进入下一个单词 */
+  /** 看完释义后进入下一个单词：直接原地换词，不卸载卡片，避免按钮区闪现 */
   onNext() {
-    const self = this;
-    this.setData({ showCard: false, revealed: false, rated: false, rating: '' });
-    setTimeout(function () {
-      self.session = progress.getSession(self.mode) || self.session;
-      self.syncCurrent();
-    }, 160);
+    this.setData({ revealed: false, rated: false, rating: '' });
+    this.session = progress.getSession(this.mode) || this.session;
+    this.syncCurrent();
   },
 
   commit(rating) {
@@ -148,11 +145,9 @@ Page({
   /** 学完一轮后继续：按选择的档位再来一批 */
   onContinue(e) {
     const n = parseInt(e.currentTarget.dataset.n, 10);
-    const self = this;
     this.session = progress.resetSession(this.mode, n);
     this.setData({
       finished: false,
-      showCard: false,
       revealed: false,
       rated: false,
       rating: '',
@@ -161,7 +156,7 @@ Page({
       total: this.session.q.length,
       barPct: 0
     });
-    setTimeout(function () { self.syncCurrent(); }, 160);
+    this.syncCurrent();
   },
 
   onClose() {
