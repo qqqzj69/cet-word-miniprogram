@@ -183,6 +183,23 @@
   padding: 32rpx;
 }
 
+.s-acc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.s-acc-link {
+  font-size: 23rpx;
+  font-weight: 300;
+  color: var(--brand);
+}
+
+.row-hover {
+  transform: scale(0.985);
+  transition: transform 0.12s ease;
+}
+
 .s-acc-grid {
   margin-top: 28rpx;
   display: flex;

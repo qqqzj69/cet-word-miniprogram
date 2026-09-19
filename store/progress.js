@@ -60,12 +60,25 @@ function masterWord(word) {
 /** 已构建的当日会话（不触发重建） */
 function getSession(mode) { return getDb().sessions[mode] || null; }
 
-/** 丢弃当前会话并重建，用于「继续加练」学完一轮后再来一批 */
-function resetSession(mode) {
+/**
+ * 丢弃当前会话并重建，用于「继续加练」学完一轮后再来一批
+ * @param {string} mode 'daily' | 'wrong'
+ * @param {number} [count] 本轮词数（10/15/20），不传则沿用每日目标
+ */
+function resetSession(mode, count) {
   const d = getDb();
   if (!d.sessions) d.sessions = {};
   delete d.sessions[mode];
-  persist();
+
+  const savedGoal = d.goal;
+  const n = parseInt(count, 10);
+  if (!isNaN(n) && n >= 5 && n <= 100) {
+    d.goal = n;               // 只影响这一轮的队列大小，不改每日目标
+    const s = ensureSession(mode);
+    d.goal = savedGoal;
+    persist();
+    return s;
+  }
   return ensureSession(mode);
 }
 

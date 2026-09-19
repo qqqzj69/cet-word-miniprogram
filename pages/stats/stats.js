@@ -38,5 +38,19 @@ Page({
     const r = parseInt(e.currentTarget.dataset.r, 10);
     if (r === this.data.range) return;
     this.refresh(r);
+  },
+
+  /** 点开累计卡：查看错词本或每日学习记录 */
+  onOpenAcc() {
+    wx.showActionSheet({
+      itemList: ['查看错词本', '查看每日学习记录'],
+      success(res) {
+        if (res.tapIndex === 0) {
+          wx.navigateTo({ url: '/pages/wrong/wrong' });
+        } else if (res.tapIndex === 1) {
+          wx.navigateTo({ url: '/pages/history/history' });
+        }
+      }
+    });
   }
 });

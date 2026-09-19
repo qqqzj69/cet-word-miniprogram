@@ -145,10 +145,11 @@ Page({
     this.onNext();
   },
 
-  /** 学完一轮后还想继续：再来一批新词 */
-  onContinue() {
+  /** 学完一轮后继续：按选择的档位再来一批 */
+  onContinue(e) {
+    const n = parseInt(e.currentTarget.dataset.n, 10);
     const self = this;
-    this.session = progress.resetSession(this.mode);
+    this.session = progress.resetSession(this.mode, n);
     this.setData({
       finished: false,
       showCard: false,

@@ -27,9 +27,9 @@
     <!-- 已看完释义：进入下一个 -->
     <view class="study-actions" wx:if="{{rated}}">
       <view class="btn btn-primary study-next" hover-class="btn-soft" bindtap="onNext">下一个</view>
-      <view class="study-tip t3">
-        {{rating === 'wrong' ? '已记下：这个词会更快再出现' : '已记下：明天再来复习'}}
-      </view>
+    </view>
+    <view class="study-tip t3" wx:if="{{rated}}">
+      {{rating === 'wrong' ? '已记下：这个词会更快再出现' : '已记下：明天再来复习'}}
     </view>
 
     <!-- 未评价：认识直接跳过 / 不认识先看释义 -->
@@ -43,8 +43,8 @@
       <view class="ra ra-right" hover-class="ra-hover" bindtap="onKnow">
         <text class="ra-title">认识</text>
       </view>
-      <view class="study-tip t3">点「认识」直接过；点「不认识」会先显示中文</view>
     </view>
+    <view class="study-tip t3" wx:else>点「认识」直接过；点「不认识」会先显示中文</view>
   </block>
 
   <!-- 完成：已自动打卡 -->
@@ -68,7 +68,18 @@
         </view>
       </view>
       <view class="study-done-btns">
-        <view class="btn btn-primary" bindtap="onContinue">继续加练</view>
+        <view class="study-more-label t3">继续加练，再来一批</view>
+        <view class="study-more-row">
+          <view class="ra ra-more" hover-class="ra-hover" bindtap="onContinue" data-n="10">
+            <text class="ra-title">10 词</text>
+          </view>
+          <view class="ra ra-more" hover-class="ra-hover" bindtap="onContinue" data-n="15">
+            <text class="ra-title">15 词</text>
+          </view>
+          <view class="ra ra-more" hover-class="ra-hover" bindtap="onContinue" data-n="20">
+            <text class="ra-title">20 词</text>
+          </view>
+        </view>
         <view class="btn btn-ghost" bindtap="onClose">回首页</view>
       </view>
     </view>

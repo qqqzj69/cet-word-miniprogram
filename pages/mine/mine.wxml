@@ -65,10 +65,6 @@
       <text class="m-row-text" style="color:#FF3B30">清空学习数据</text>
       <text class="m-row-arrow">›</text>
     </view>
-    <view class="m-row" hover-class="m-hover" bindtap="onAbout">
-      <text class="m-row-text">关于 / 词库来源</text>
-      <text class="m-row-arrow">›</text>
-    </view>
   </view>
 
   <view class="t3 m-foot">本地数据 · 关闭小程序后依然保留，仅主动清空时删除</view>

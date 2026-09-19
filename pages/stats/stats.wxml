@@ -64,9 +64,12 @@
     </view>
   </view>
 
-  <!-- 累计 -->
-  <view class="card s-acc fade-up">
-    <view class="h3">{{st.levelName}} · 累计</view>
+  <!-- 累计：可点开查看错词与学习记录 -->
+  <view class="card s-acc fade-up" hover-class="row-hover" bindtap="onOpenAcc">
+    <view class="s-acc-head">
+      <view class="h3">{{st.levelName}} · 累计</view>
+      <view class="s-acc-link">错词与学习记录 ›</view>
+    </view>
     <view class="s-acc-grid num">
       <view class="s-acc-cell">
         <view class="s-acc-num">{{st.acc.learned}}</view>
