@@ -1,8 +1,8 @@
 {
-  "description": "CET 词汇 · 英语四六级背单词小程序",
+  "description": "贝贝四六级 · 英语四六级背单词小程序（离线 · 零依赖 · 本地持久化）",
   "compileType": "miniprogram",
   "appid": "touristappid",
-  "projectname": "cet-word",
+  "projectname": "贝贝四六级",
   "libVersion": "3.0.0",
   "setting": {
     "es6": true,

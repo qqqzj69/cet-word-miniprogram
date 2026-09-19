@@ -87,7 +87,7 @@ Page({
 
   onAbout() {
     wx.showModal({
-      title: '关于 CET 词汇',
+      title: '关于 贝贝四六级',
       content: '本地离线背单词小程序。\n词库来源：KyleBing/english-vocabulary（GitHub 开源项目，仅用于个人学习）。\n数据全部保存在本机，可随时在下方清除。',
       showCancel: false,
       confirmText: '知道了'
