@@ -1,8 +1,8 @@
 {
-  "description": "贝贝四六级 · 英语四六级背单词小程序（离线 · 零依赖 · 本地持久化）",
+  "description": "小邱背单词 · 英语四六级背单词小程序（离线 · 零依赖 · 本地持久化）",
   "compileType": "miniprogram",
   "appid": "wxabf67554ba883f3e",
-  "projectname": "贝贝四六级",
+  "projectname": "小邱背单词",
   "libVersion": "3.0.0",
   "setting": {
     "es6": true,
@@ -58,7 +58,7 @@
         "type": "suffix"
       },
       {
-        "value": "贝贝四六级-头像方案_assets",
+        "value": "小邱背单词-头像方案_assets",
         "type": "folder"
       }
     ],

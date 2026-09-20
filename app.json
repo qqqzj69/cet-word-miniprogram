@@ -12,7 +12,7 @@
   "window": {
     "navigationBarBackgroundColor": "@navBg",
     "navigationBarTextStyle": "@navTxt",
-    "navigationBarTitleText": "贝贝四六级",
+    "navigationBarTitleText": "小邱背单词",
     "backgroundColor": "@bg",
     "backgroundTextStyle": "@bgTxt"
   },

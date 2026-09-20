@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "贝贝四六级",
+  "navigationBarTitleText": "小邱背单词",
   "usingComponents": {
     "progress-ring": "/components/progress-ring/index"
   }
